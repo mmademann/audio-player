@@ -1,3 +1,7 @@
+var isMobile = false;
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    isMobile = true;
+}
 
 var SOUND = {
 
@@ -11,23 +15,32 @@ var SOUND = {
 
     init : function(){
 
-        this.progress.slider();        
+        this.progress.slider();  
 
-        var firstTrack  = this.meta.find('a').eq(0).addClass('on'),
-            trackName   = firstTrack.data('name');
+        var track       = this.GetFirstTrack();
         
-        this.audio      = new Audio('music/'+trackName+'.ogg','music/'+trackName+'.mp3');
+        this.audio      = new Audio('music/'+track+'.ogg','music/'+track+'.mp3');
 
         this.audio.type = this.audio.canPlayType('audio/mpeg;') 
                           ? 'audio/mpeg' : 'audio/ogg';
         
         this.audio.src  = this.audio.canPlayType('audio/mpeg;') 
-                          ? 'music/'+trackName+'.mp3' : 'music/'+trackName+'.ogg';
+                          ? 'music/'+track+'.mp3' : 'music/'+track+'.ogg';
 
         this.audio.load();
 
         this.events();      
-    },    
+    },
+
+    GetFirstTrack : function(){
+
+        var firstTrack  = this.meta
+                            .find('a').eq(0)
+                            .addClass('on'),
+            trackName   = firstTrack.data('name');
+
+        return trackName;
+    },
 
     events : function(){
 
@@ -40,17 +53,19 @@ var SOUND = {
             .on('click', '#stop', this.stop)   
             .on('click', '#volume', this.volume);
 
-        this.progress
-            .on('slide', this.slide)
-            .on('mouseup', this.slide)
-            .on('mouseup', this.mouseUp)
-            .on('mousedown', 'a', this.mouseDown);
-
-        // this.progress
-        //     .on('touchmove', this.slide)
-        //     .on('touchend', this.slide)
-        //     .on('touchend', this.mouseUp)
-        //     .on('touchstart', 'a', this.mouseDown);
+        if (isMobile) {
+            this.progress
+                .on('touchmove', this.slide)
+                .on('touchend', this.slide)
+                .on('touchend', this.mouseUp)
+                .on('touchstart', 'a', this.mouseDown);
+        } else {
+            this.progress
+                .on('slide', this.slide)
+                .on('mouseup', this.slide)
+                .on('mouseup', this.mouseUp)
+                .on('mousedown', 'a', this.mouseDown);
+        }
 
         this.audio.addEventListener('timeupdate', this.tickTock);
         this.audio.addEventListener('loadedmetadata', this.loadMeta);
@@ -112,7 +127,8 @@ var SOUND = {
         self.showState('play');
         self.audio.pause();
         self.audio.currentTime = 0;
-        self.progress.slider('option', 'value', 0);   
+        self.progress.slider('option', 'value', 0);
+        self.getCurrentTime(0);  
     },
 
     volume : function(e){
@@ -212,6 +228,5 @@ SOUND.init();
 
 $(document).ready(function() {
 
-    $('.player').slideDown(500);        
 
 });

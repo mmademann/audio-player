@@ -1,6 +1,8 @@
 html {background-image: url(../images/bg.gif);}
 /*html {background: url(../images/bt.jpg) center top;}*/
 
+body, html {height: 100%}
+
 
 .gradient {
 	border: 1px solid black;
@@ -28,13 +30,13 @@ html {background-image: url(../images/bg.gif);}
 	position: relative;
 	overflow: hidden;
 	width: 100%;
-	height: auto;
+	height: 100%;
 	padding: 20px;
 	margin:0px auto;
-
+/*
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
-	border-radius: 10px;
+	border-radius: 10px;*/
 
 	-webkit-box-shadow: 0px 0px 13px rgba(0,0,0,.3),inset 0 1px 0px rgba(255,255,255,.2);
 	-moz-box-shadow: 0px 0px 13px rgba(0,0,0,.3),inset 0 1px 0px rgba(255,255,255,.2);
@@ -54,7 +56,8 @@ html {background-image: url(../images/bg.gif);}
 	
 	width: 100%;
 	margin: 0 auto;
-	display: none;
+	display: block;
+	overflow: hidden;
 
 
 	-webkit-border-radius: 3px;
@@ -109,11 +112,11 @@ html {background-image: url(../images/bg.gif);}
 	
 	border: 1px solid black;
 	display: block;
-	width: 88%;
+	width: 60%;
 	height: 15px;
 	float:left;
-	margin-top:10px;
 	margin-left:12px;
+	margin-top: 10px;
 	margin-bottom:40px;
 
 	-webkit-border-radius: 20px;
@@ -124,6 +127,9 @@ html {background-image: url(../images/bg.gif);}
 	-webkit-box-shadow: inset 0px 4px 4px rgba(0,0,0,.6);
 	-moz-box-shadow: inset 0px 4px 4px rgba(0,0,0,.6);
 	box-shadow: inset 0px 4px 4px rgba(0,0,0,.6);
+
+/*		margin:10px auto 40px;
+		float:none;*/
 }
 
 #progress.ui-slider-horizontal.ui-slider {background:#242323;}
@@ -148,7 +154,7 @@ html {background-image: url(../images/bg.gif);}
 
 #time span {
 	position: absolute;
-	top:-16px; right:5px;
+	top:-16px; left:5px;
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 	
 	font-size:10px;
 	color:#83C4C0;
@@ -203,20 +209,44 @@ html {background-image: url(../images/bg.gif);}
 #meta a:hover, #meta a.on {background:#444;}
 
 
+.button {
+	float:none;
+	display:inline-block;
+}
+
+#progress {
+	margin:10px auto 40px;
+	float:none;
+	width:30%;
+}
+
+#stop {display: inline-block;}
+#buttons {width:150px;margin:0 auto;}
+#time {width:30%;margin:0 auto;}
+#time span {right:0;left:auto;top:-35px;}
+
 /** smartphone (landscape)**/
-@media only screen and (min-width : 321px) {
+@media only screen and (min-width : 321px) and (max-width : 480px) {
 	
-	#progress {width:65%;}	
 }
 
 /** smartphone (portrait)**/
 @media only screen and (max-width : 320px) {
 
-	#progress {width:40%;}
 }
 
 /** smartphone (portrait and landscape)**/
-@media only screen and (min-width : 320px) and (max-width : 480px) {}
+@media only screen and (min-width : 320px) and (max-width : 480px) {
+
+	#progress {
+		width:80%;
+	}
+
+	#time {width:80%;}	
+
+	#meta a {font-weight: 700}
+
+}
 
 
 
