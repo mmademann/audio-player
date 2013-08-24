@@ -209,21 +209,15 @@ body, html {height: 100%}
 #meta a:hover, #meta a.on {background:#444;}
 
 
-.button {
-	float:none;
-	display:inline-block;
-}
-
-#progress {
-	margin:10px auto 40px;
-	float:none;
-	width:30%;
-}
-
+/* redesign */
+.button {float:none;display:inline-block;}
+#progress {margin:10px auto 40px;float:none;width:30%;}
 #stop {display: inline-block;}
 #buttons {width:150px;margin:0 auto;}
 #time {width:30%;margin:0 auto;}
 #time span {right:0;left:auto;top:-35px;}
+
+
 
 /** smartphone (landscape)**/
 @media only screen and (min-width : 321px) and (max-width : 480px) {
@@ -244,7 +238,7 @@ body, html {height: 100%}
 
 	#time {width:80%;}	
 
-	#meta a {font-weight: 700}
+	#meta a {font-weight: 700;padding:15px 5px;}
 
 }
 
