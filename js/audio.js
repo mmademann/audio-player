@@ -24,31 +24,30 @@ var SOUND = {
         this.audio.src  = this.audio.canPlayType('audio/mpeg;') 
                           ? 'music/'+trackName+'.mp3' : 'music/'+trackName+'.ogg';
 
-        this.audio.addEventListener('timeupdate', this.tickTock);
-        // this.audio.addEventListener('loadedmetadata', this.metaReady);
-        this.audio.addEventListener('loadedmetadata', this.metaReady);
-        this.audio.addEventListener('canplaythrough', this.canPlay);
-        this.audio.addEventListener('ended', this.ended);                    
-
-        this.events();
+        this.events();      
     },    
 
     events : function(){
 
         var self = SOUND;
 
-        self.boss
-            .on('click', '.play', self.play)
-            .on('click', '.pause', self.pause)
-            .on('click', '.track', self.track)
-            .on('click', '#stop', self.stop)   
-            .on('click', '#volume', self.volume);
+        this.boss
+            .on('click', '.play', this.play)
+            .on('click', '.pause', this.pause)
+            .on('click', '.track', this.track)
+            .on('click', '#stop', this.stop)   
+            .on('click', '#volume', this.volume);
 
-        self.progress
-            .on('slide', self.slide)
-            .on('mouseup', self.slide)
-            .on('mouseup', self.mouseUp)
-            .on('mousedown', 'a', self.mouseDown);
+        this.progress
+            .on('slide', this.slide)
+            .on('mouseup', this.slide)
+            .on('mouseup', this.mouseUp)
+            .on('mousedown', 'a', this.mouseDown);
+
+        this.audio.addEventListener('timeupdate', this.tickTock);
+        this.audio.addEventListener('loadedmetadata', this.loadMeta);
+        this.audio.addEventListener('loadeddata', this.loaded);
+        this.audio.addEventListener('ended', this.ended);               
     },
 
     track : function(e){
@@ -64,7 +63,7 @@ var SOUND = {
         self.audio.src  = self.audio.canPlayType('audio/mpeg;') 
                           ? 'music/'+name+'.mp3' : 'music/'+name+'.ogg';
         
-        self.audio.load();
+        // self.audio.load();
     },
 
     showState : function(state){
@@ -187,16 +186,16 @@ var SOUND = {
         self.progress.slider('option', 'value', secs);        
     },
 
-    metaReady : function(e) {
+    loadMeta : function(e) {
         var self = SOUND;
         self.duration = this.duration;
     },
 
-    canPlay : function() {
+    loaded : function(e) {
         var self = SOUND;
         self.showState('pause');        
         self.progress.slider('option', 'max', self.duration);
-        self.progress.slider('option', 'value', 0);        
+        self.progress.slider('option', 'value', 0);
         self.audio.play();
     }
 }
