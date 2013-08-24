@@ -210,13 +210,14 @@ body, html {height: 100%}
 
 
 /* redesign */
+#boss {overflow: auto;}
 .button {float:none;display:inline-block;}
 #progress {margin:10px auto 40px;float:none;width:30%;}
 #stop {display: inline-block;}
 #buttons {width:150px;margin:0 auto;}
+#meta {margin-bottom: 30px}
 #time {width:30%;margin:0 auto;}
 #time span {right:0;left:auto;top:-35px;}
-
 
 
 /** smartphone (landscape)**/
@@ -239,6 +240,8 @@ body, html {height: 100%}
 	#time {width:80%;}	
 
 	#meta a {font-weight: 700;padding:15px 5px;}
+
+
 
 }
 
