@@ -26,8 +26,9 @@ var SOUND = {
 
         this.audio.addEventListener('timeupdate', this.tickTock);
         // this.audio.addEventListener('loadedmetadata', this.metaReady);
+        this.audio.addEventListener('loadedmetadata', this.metaReady);
+        this.audio.addEventListener('canplaythrough', this.canPlay);
         this.audio.addEventListener('ended', this.ended);                    
-        this.audio.addEventListener('canplay', this.metaReady);
 
         this.events();
     },    
@@ -139,9 +140,9 @@ var SOUND = {
             value = self.progress.slider('option', 'value'),
             round = parseInt(Math.round(value, 10));
 
-        self.getCurrentTime(round);
+        self.getCurrentTime(value);
         self.lastTime = round;
-        self.audio.currentTime = round;
+        self.audio.currentTime = value;
     },
 
     ended : function(e) {
@@ -189,11 +190,15 @@ var SOUND = {
     metaReady : function(e) {
         var self = SOUND;
         self.duration = this.duration;
+    },
+
+    canPlay : function() {
+        var self = SOUND;
         self.showState('pause');        
         self.progress.slider('option', 'max', self.duration);
         self.progress.slider('option', 'value', 0);        
         self.audio.play();
-    }   
+    }
 }
 
 $(document).ready(function() {
