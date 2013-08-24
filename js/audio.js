@@ -25,9 +25,11 @@ var SOUND = {
                           ? 'music/'+trackName+'.mp3' : 'music/'+trackName+'.ogg';
 
         this.audio.addEventListener('timeupdate', this.tickTock);
-        this.audio.addEventListener('loadedmetadata', this.metaReady);
+        // this.audio.addEventListener('loadedmetadata', this.metaReady);
         this.audio.addEventListener('ended', this.ended);                    
-        this.audio.addEventListener('canplay', this.events);
+        this.audio.addEventListener('canplay', this.metaReady);
+
+        this.events();
     },    
 
     events : function(){
@@ -187,10 +189,10 @@ var SOUND = {
     metaReady : function(e) {
         var self = SOUND;
         self.duration = this.duration;
-        self.audio.play();
         self.showState('pause');        
         self.progress.slider('option', 'max', self.duration);
         self.progress.slider('option', 'value', 0);        
+        self.audio.play();
     }   
 }
 
