@@ -188,8 +188,8 @@ body, html {height: 100%}
 	display:block;
 	background:#303030;
 	color:#83C4C0;
-	font-size:12px;
-	padding:5px;
+	font-size:14px;
+	padding:15px 10px;
 	margin:5px;
 	cursor:pointer;
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
@@ -211,10 +211,11 @@ body, html {height: 100%}
 
 /* redesign */
 #boss {overflow: auto;}
-#progress {margin:10px auto 40px;float:none;width:30%;}
+.player {margin-top:10px;}
+#progress {margin:30px auto 40px;float:none;width:30%;}
 #stop {display: inline-block;}
-#buttons {width:150px;margin:0 auto;}
-.button {float:none;display:inline-block;}
+#buttons {width:180px;margin:0 auto;}
+.button {float:none;display:inline-block;margin-right: 20px}
 #meta {margin-bottom: 30px}
 #time {width:30%;margin:0 auto;}
 #time span {right:0;left:auto;top:-35px;}
@@ -233,16 +234,11 @@ body, html {height: 100%}
 /** smartphone (portrait and landscape)**/
 @media only screen and (min-width : 320px) and (max-width : 480px) {
 
-	.player {margin-top:10px;}
-
 	#progress {
 		width:80%;
-		margin-top:30px;
 	}
 
 	#time {width:80%;}	
-
-	#meta a {padding:15px 10px;font-size:14px;}
 
 }
 
