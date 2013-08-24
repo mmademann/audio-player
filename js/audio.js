@@ -1,5 +1,5 @@
 
-var SOUND = SOUND || {
+var SOUND = {
 
     boss        : $('#boss'),
     progress    : $('#progress'),
@@ -24,29 +24,28 @@ var SOUND = SOUND || {
         this.audio.src  = this.audio.canPlayType('audio/mpeg;') 
                           ? 'music/'+trackName+'.mp3' : 'music/'+trackName+'.ogg';
 
-        this.audio.load();                          
-
-        this.events();
+        this.audio.addEventListener('timeupdate', this.tickTock);
+        this.audio.addEventListener('loadedmetadata', this.metaReady);
+        this.audio.addEventListener('ended', this.ended);                    
+        this.audio.addEventListener('canplay', this.events);
     },    
 
     events : function(){
 
-        this.boss
-            .on('click', '.play', this.play)
-            .on('click', '.pause', this.pause)
-            .on('click', '.track', this.track)
-            .on('click', '#stop', this.stop)   
-            .on('click', '#volume', this.volume);
+        var self = SOUND;
 
-        this.audio.addEventListener('timeupdate', this.tickTock);
-        this.audio.addEventListener('loadedmetadata', this.metaReady);
-        this.audio.addEventListener('ended', this.ended);
+        self.boss
+            .on('click', '.play', self.play)
+            .on('click', '.pause', self.pause)
+            .on('click', '.track', self.track)
+            .on('click', '#stop', self.stop)   
+            .on('click', '#volume', self.volume);
 
-        this.progress
-            .on('slide', this.slide)
-            .on('mouseup', this.slide)
-            .on('mouseup', this.mouseUp)
-            .on('mousedown', 'a', this.mouseDown);
+        self.progress
+            .on('slide', self.slide)
+            .on('mouseup', self.slide)
+            .on('mouseup', self.mouseUp)
+            .on('mousedown', 'a', self.mouseDown);
     },
 
     track : function(e){
