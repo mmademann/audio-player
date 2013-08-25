@@ -279,11 +279,12 @@ var SOUND = {
 
     loadedMeta : function() {
         SOUND.duration = this.duration;
+        alert('loadedmeta');
     },
 
     loadStart : function(){
         var self = SOUND;
-        
+
         if (self.isMobile){
             alert('loadstart');
             self.resetSlider();
