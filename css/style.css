@@ -58,7 +58,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', end
 }
 
 #buttons {
-	width:250px;
+	width:280px;
 	margin:20px auto 0;
 }
 
@@ -105,9 +105,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', end
 
 .arrow {
 	width:30px;
-	position: absolute;
+/*	position: absolute;
 	top:-86px;
-	left:-50px;
+	left:-50px;*/
 }
 
 #prev {
