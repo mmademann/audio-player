@@ -77,6 +77,8 @@ var SOUND = {
                           ? 'music/'+name+'.mp3' : 'music/'+name+'.ogg';
         
         self.audio.load();
+
+        self.audio.addEventListener('canplay', self.play);      
     },
 
     getFirstTrack : function(){
@@ -280,7 +282,7 @@ var SOUND = {
 
     loadedData : function() {
         var self = SOUND,
-            secs = parseInt(self.audio.currentTime, 10);
+            secs = parseInt(this.currentTime, 10);
 
         if (secs == self.lastTime || (self.inProg && !self.isMobile)) {
             return false;
@@ -288,10 +290,10 @@ var SOUND = {
 
         self.inProg = true;
 
-        self.showState('pause');
+        // self.showState('pause');
         self.resetSlider();
         self.resetMeta();
-        self.audio.play();
+        // this.play();
 
         if (!self.isMobile){
             setTimeout(function(){self.inProg = false}, 100);

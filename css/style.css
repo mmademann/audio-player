@@ -67,28 +67,23 @@ body a {text-decoration: none;}
 
 #control {
 	background-position: -95px -13px;
-	/*background-position: -32px 5px;*/
 }
 
 #control.play {
 	background-position: -15px -13px;
-	/*background-position: 6px 5px;*/
 }
 
 #stop {
 	display: none;
 	background-position: -180px -12px;
-	/*background-position: -146px 5px;*/	
 }
 
 .volume {
 	background-position: -360px -12px;
-	/*background-position: -106px 5px;*/
 }
 
 .volume.mute {
 	background-position: -273px -12px;
-	/*background-position: -63px 5px;*/
 }
 
 .arrow {
@@ -111,13 +106,6 @@ body a {text-decoration: none;}
 	height: 30px;
 	margin:30px auto 60px;
 	border: 1px solid black;
-	
-	/*
-	-webkit-border-radius: 20px;
-	-moz-border-radius: 20px;
-	border-radius: 20px;
-	background-color: #242323;
-	*/
 
 	-webkit-box-shadow: inset 0px 4px 4px rgba(0,0,0,.3);
 	-moz-box-shadow: inset 0px 4px 4px rgba(0,0,0,.3);
@@ -139,12 +127,6 @@ body a {text-decoration: none;}
 	height: 34px;
 	top:-3px;
 	border:1px solid black;
-
-	/*	
-	-webkit-border-radius: 20px;
-	-moz-border-radius: 20px;
-	border-radius: 20px;
-	*/
 
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
@@ -190,7 +172,9 @@ body a {text-decoration: none;}
 }
 
 #meta .name {
-	right:auto;left:15px;top:-50px;
+	right:auto;
+	left:15px;
+	top:-50px;
 }
 
 #spinner {
@@ -200,10 +184,12 @@ body a {text-decoration: none;}
 	margin:auto;
 	position:absolute;
 	right:15px;top:-86px;
+
 	-webkit-animation: rotation .6s infinite linear;
 	-moz-animation: rotation .6s infinite linear;
 	-o-animation: rotation .6s infinite linear;
 	animation: rotation .6s infinite linear;
+
 	border:6px solid rgba(0,174,239,.15);
 	border-radius:100%;
 }
@@ -291,32 +277,22 @@ body a {text-decoration: none;}
 	color:#000;
 }
 
-/** smartphone (landscape) **/
-@media only screen and (min-width : 321px) and (max-width : 480px) {
-	
-}
-
-/** smartphone (portrait) **/
-@media only screen and (max-width : 320px) {
-
-}
-
 /** smartphone (portrait and landscape) **/
 @media only screen and (min-width : 320px) and (max-width : 480px) {
 
-	#meta,
-	#progress {
+	#meta, #progress {
 		width:80%;
 	}
 
-	#tracks a {padding:10px;}
+	#tracks a {
+		padding:10px;
+	}
 }
 
 /** greater than 481 width **/
 @media only screen and (min-width : 481px) {
 	
-	body, 
-	html {
+	body, html {
 		height: 100%
 	}
 
