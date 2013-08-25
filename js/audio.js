@@ -280,13 +280,15 @@ var SOUND = {
 
     loadedMeta : function() {
         SOUND.duration = this.duration;
-        alert('loadedmeta');
+        // alert('loadedmeta');
     },
 
     mobileLoad : function(){
         var self = SOUND;
 
         if (self.isMobile){
+
+            alert('mobile load');
             self.resetSlider();
             self.resetMeta();
         }
@@ -295,8 +297,6 @@ var SOUND = {
     canPlayThrough : function() {
         var self = SOUND,
             secs = parseInt(this.currentTime, 10);
-
-        alert('canPlayThrough');
 
         if (secs == self.lastTime || 
            (self.inProg && !self.isMobile)) {
