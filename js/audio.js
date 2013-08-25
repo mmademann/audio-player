@@ -33,6 +33,8 @@ var SOUND = SOUND || {
 
     'events' : function(){
 
+        alert('gott it');
+
         this.outer
             .off('click')
             .on('click', '.play', this.play)
@@ -296,7 +298,7 @@ var SOUND = SOUND || {
         var self = SOUND,
             secs = parseInt(this.currentTime, 10);
 
-        // alert('at least here');
+        alert('at least here');
 
         if (secs == self.lastTime || 
            self.inProg) {
