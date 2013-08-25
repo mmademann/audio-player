@@ -55,8 +55,8 @@ var SOUND = {
             .on('click', '.play', this.play)
             .on('click', '.pause', this.pause)
             .on('click', '.track', this.change)
-            .on('click', '#stop', this.stop)
-            .on('click', '#volume', this.volume);
+            .on('click', '.stop', this.stop)
+            .on('click', '.volume', this.volume);
 
         if (isMobile) {
 
