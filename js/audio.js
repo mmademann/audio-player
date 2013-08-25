@@ -211,7 +211,7 @@ var SOUND = {
 
         var self = SOUND;
 
-        self.nextTrack();
+        // self.nextTrack();
     },
 
     nextTrack : function(e){
@@ -230,6 +230,7 @@ var SOUND = {
 
         var name = nextSound.data('name');
 
+        alert('new');
         alert(name);
 
         self.setSource(name);
