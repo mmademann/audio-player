@@ -211,7 +211,9 @@ var SOUND = {
 
         var self = SOUND;
 
-        // self.nextTrack();
+        alert('ended');
+
+        self.nextTrack();
     },
 
     nextTrack : function(e){
