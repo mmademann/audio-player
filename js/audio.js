@@ -33,7 +33,7 @@ var SOUND = SOUND || {
 
     'events' : function(){
 
-        alert('gott it');
+        // alert('gott it');
 
         this.outer
             .off('click')
@@ -214,7 +214,7 @@ var SOUND = SOUND || {
         
         self.audio.load();
 
-        self.play();
+        // self.play();
     },
 
     'showState' : function(state){
