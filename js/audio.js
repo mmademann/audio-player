@@ -22,7 +22,7 @@ var SOUND = SOUND || {
         var track       = this.getFirstTrack();
         
         // create the audio element
-        this.audio      = new Audio('music/'+track+'.ogg','music/'+track+'.mp3');
+        this.audio = new Audio('music/'+track+'.ogg','music/'+track+'.mp3');
 
         this.audio.type = this.audio.canPlayType('audio/mpeg;') 
                           ? 'audio/mpeg' : 'audio/ogg';
@@ -77,7 +77,7 @@ var SOUND = SOUND || {
         this.audio.load();
         
         // mobile safari doesn't fire canplaythrough
-        // unless the user physically interacts with the audio
+        // unless the user physically plays the audio first
         this.mobileLoad();
     },
 
@@ -300,9 +300,9 @@ var SOUND = SOUND || {
     'mobileLoad' : function(){
 
         if (isMobile){
-            // this.resetSlider();
-            // this.hideSpinner();
-            // this.setTrackName();            
+            this.resetSlider();
+            this.hideSpinner();
+            this.setTrackName();            
         }
     },
 
@@ -314,8 +314,6 @@ var SOUND = SOUND || {
             return false;
         }
 
-        alert('test'); 
-        
         self.inProg = true;
 
         self.showState('pause');
@@ -324,13 +322,11 @@ var SOUND = SOUND || {
         self.hideSpinner();
         this.play();
 
-        // Firefox fires canPlayThrough twice, so watch out
+        // Firefox fires canPlayThrough twice, so be careful
         setTimeout(function(){self.inProg = false}, 300);
     }
 }
 
-SOUND.init();
-
-// $(document).ready(function() {
-    
-// });
+$(document).ready(function() {
+    SOUND.init();
+});
