@@ -182,6 +182,13 @@ var SOUND = {
         this.spinner.toggle();
     },
 
+    resetProgress : function() {
+        this.toggleSpinner();
+        this.audio.currentTime = 0;
+        this.progress.slider('option', 'value', 0);
+        this.setCurrentTime(0);          
+    },    
+
     nextTrack : function(e){
         try{e.preventDefault()}catch(e){}
 
@@ -189,7 +196,7 @@ var SOUND = {
             currSound = self.tracks.find('.on').removeClass('on'),
             nextSound = $(this).is('.track') ? $(this) : currSound.next();
 
-        self.toggleSpinner();
+        self.resetProgress();
 
         if (!nextSound.length) {
             nextSound = self.tracks.find('a.track').eq(0);
@@ -209,7 +216,7 @@ var SOUND = {
             currSound = self.tracks.find('.on').removeClass('on'),
             prevSound = currSound.prev();
 
-        self.toggleSpinner();            
+        self.resetProgress();            
         
         if (!prevSound.length) {
             prevSound = self.tracks.find('a:last-child');
