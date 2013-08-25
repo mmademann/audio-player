@@ -180,7 +180,7 @@ var SOUND = {
     },
 
     toggleSpinner : function() {
-        this.meta.find('.time').toggle();
+        this.meta.find('.time').hide();
         this.spinner.toggle();
     },
 
@@ -283,6 +283,7 @@ var SOUND = {
 
         self.showState('pause');
         self.resetProgress();
+        self.meta.find('.time').show();        
         self.audio.play();
 
         if (!self.isMobile){
