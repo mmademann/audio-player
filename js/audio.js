@@ -5,6 +5,7 @@ if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigat
 
 var SOUND = {
 
+    inProg      : false,
     outer       : $('#outer'),
     progress    : $('#progress'),
     control     : $('#control'),
@@ -62,9 +63,9 @@ var SOUND = {
                 .on('mousedown', 'a', this.mouseDown);
         }
 
+        this.audio.addEventListener('canplay', this.loadedData);
         this.audio.addEventListener('timeupdate', this.timeUpdate);
         this.audio.addEventListener('loadedmetadata', this.loadedMeta);
-        this.audio.addEventListener('canplay', this.loadedData);
         this.audio.addEventListener('ended', this.ended);               
     },
 
@@ -184,7 +185,7 @@ var SOUND = {
 
     resetProgress : function() {
         this.toggleSpinner();
-        this.audio.currentTime = 0;
+        this.setTrackName();
         this.progress.slider('option', 'value', 0);
         this.setCurrentTime(0);          
     },    
@@ -272,16 +273,20 @@ var SOUND = {
         var self = SOUND,
             secs = parseInt(self.audio.currentTime, 10);
 
-        if (secs == self.lastTime){
+        if (secs == self.lastTime || self.inProg){
             return false;
         }
 
-        self.toggleSpinner();
-        self.setTrackName();
+        self.inProg = true;
+
         self.showState('pause');          
         self.progress.slider('option', 'max', self.duration);
-        self.progress.slider('option', 'value', 0);
+        self.resetProgress();      
         self.audio.play();
+
+        setTimeout(function(){
+            self.inProg = false;
+        }, 300);
     }
 }
 
