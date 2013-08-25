@@ -5,7 +5,7 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 
 var SOUND = {
 
-    boss        : $('#boss'),
+    theboss     : $('#theboss'),
     progress    : $('#progress'),
     control     : $('#control'),
     volume      : $('#volume'),
@@ -17,7 +17,7 @@ var SOUND = {
 
         this.progress.slider();  
 
-        var track       = this.getFirstTrack();
+        var track       = this.firstTrack();
         
         this.audio      = new Audio('music/'+track+'.ogg','music/'+track+'.mp3');
 
@@ -32,25 +32,16 @@ var SOUND = {
         this.events();      
     },
 
-    getFirstTrack : function(){
-
-        var trackName   = this.meta
-                            .find('a.track')
-                            .eq(0)
-                            .addClass('on')
-                            .data('name');
-
-        return trackName;
-    },
-
     events : function(){
 
-        this.boss
+        this.theboss
             .on('click', '.play', this.play)
             .on('click', '.pause', this.pause)
             .on('click', '.track', this.changeSong)
             .on('click', '#stop', this.stop)
             .on('click', '#volume', this.volume);
+
+        $(window).keypress(this.spacebar);
 
         if (isMobile) {          
 
@@ -75,19 +66,30 @@ var SOUND = {
         this.audio.addEventListener('canplay', this.loaded);
     },
 
+    firstTrack : function(){
+
+        var name = this.meta
+                        .find('a')
+                        .eq(0)
+                        .addClass('on')
+                        .data('name');
+
+        return name;
+    },    
+
     changeSong : function(e){
         try{e.preventDefault()}catch(e){}
 
         var self = SOUND;
 
-        self.unsetActives();
+        self.clearActives();
 
         var name = $(this).addClass('on').data('name');
 
         self.setSource(name);
     },
 
-    unsetActives : function(e){
+    clearActives : function(e){
 
         var self = SOUND;
 
@@ -108,7 +110,8 @@ var SOUND = {
 
     showState : function(state){
 
-        var on = 'pause', off = 'play';
+        var on  = 'pause', 
+            off = 'play';
 
         if (state == 'play') {
             on  = 'play';
@@ -117,6 +120,22 @@ var SOUND = {
 
         this.control.addClass(on).removeClass(off);
     },
+
+    spacebar : function(e){
+
+       if (e.which === 32) {
+
+            var self = SOUND,
+            
+                isPlaying = !self.audio.paused;
+
+            if (isPlaying) {
+                self.pause();
+            } else {
+                self.play();
+            }
+        }        
+    },    
 
     play : function(e){
         try{e.preventDefault()}catch(e){}            
@@ -177,11 +196,10 @@ var SOUND = {
     slide : function(e) {
 
         var self  = SOUND,
-            value = self.progress.slider('option', 'value'),
-            round = parseInt(Math.round(value, 10));
+            value = self.progress.slider('option', 'value');
 
         self.getCurrentTime(value);
-        self.lastTime = round;
+        self.lastTime = value;
         self.audio.currentTime = value;
     },
 
