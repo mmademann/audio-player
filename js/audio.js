@@ -288,10 +288,8 @@ var SOUND = SOUND || {
         var self = SOUND;
 
         if (isMobile){
-            // alert('im mobile');
             self.resetSlider();
             self.resetMeta();
-            self.play();
         }
     },
 
@@ -299,14 +297,10 @@ var SOUND = SOUND || {
         var self = SOUND,
             secs = parseInt(this.currentTime, 10);
 
-        alert('top');
-
         if (secs == self.lastTime || 
            self.inProg) {
             return false;
         }
-
-        alert('in');
 
         self.inProg = true;
 
@@ -315,9 +309,8 @@ var SOUND = SOUND || {
         self.resetMeta();
         this.play();
 
-        // if (!isMobile){
-            setTimeout(function(){self.inProg = false}, 300);
-        // }
+        // Firefox fires canPlayThrough twice, so watch out
+        setTimeout(function(){self.inProg = false}, 300);
     }
 }
 
