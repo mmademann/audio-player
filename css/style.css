@@ -127,9 +127,6 @@ body, html {height: 100%}
 	-webkit-box-shadow: inset 0px 4px 4px rgba(0,0,0,.6);
 	-moz-box-shadow: inset 0px 4px 4px rgba(0,0,0,.6);
 	box-shadow: inset 0px 4px 4px rgba(0,0,0,.6);
-
-/*		margin:10px auto 40px;
-		float:none;*/
 }
 
 #progress.ui-slider-horizontal.ui-slider {background:#242323;}
@@ -238,7 +235,10 @@ body, html {height: 100%}
 		width:80%;
 	}
 
-	#time {width:80%;}	
+	#time {width:80%;}
+
+	#meta a:hover {background:#303030;}
+
 
 }
 

@@ -46,20 +46,30 @@ var SOUND = {
 
         var self = SOUND;
 
-        this.boss
-            .on('click', '.play', this.play)
-            .on('click', '.pause', this.pause)
-            .on('click', '.track', this.track)
-            .on('click', '#stop', this.stop)   
-            .on('click', '#volume', this.volume);
-
         if (isMobile) {
+
+            this.boss
+                .on('touchstart', '.play', this.play)
+                .on('touchstart', '.pause', this.pause)
+                .on('touchstart', '.track', this.track)
+                .on('touchstart', '#stop', this.stop)   
+                .on('touchstart', '#volume', this.volume);
+
             this.progress
                 .on('touchmove', this.slide)
                 .on('touchend', this.slide)
                 .on('touchend', this.mouseUp)
                 .on('touchstart', 'a', this.mouseDown);
+                
         } else {
+
+            this.boss
+                .on('click', '.play', this.play)
+                .on('click', '.pause', this.pause)
+                .on('click', '.track', this.track)
+                .on('click', '#stop', this.stop)   
+                .on('click', '#volume', this.volume);
+
             this.progress
                 .on('slide', this.slide)
                 .on('mouseup', this.slide)
@@ -69,8 +79,8 @@ var SOUND = {
 
         this.audio.addEventListener('timeupdate', this.tickTock);
         this.audio.addEventListener('loadedmetadata', this.loadMeta);
-        this.audio.addEventListener('loadeddata', this.loaded);
         this.audio.addEventListener('ended', this.ended);               
+        this.audio.addEventListener('loadeddata', this.loaded);
     },
 
     track : function(e){
@@ -224,9 +234,9 @@ var SOUND = {
     }
 }
 
-SOUND.init();
 
 $(document).ready(function() {
 
+    SOUND.init();
 
 });
