@@ -185,7 +185,7 @@ var SOUND = {
     },
 
     resetSlider : function() {
-        this.progress.slider('option', 'max', self.duration);        
+        this.progress.slider('option', 'max', this.duration);        
         this.progress.slider('option', 'value', 0);
         this.setCurrentTime(0);          
     }, 
@@ -285,11 +285,6 @@ var SOUND = {
         self.inProg = true;
 
         self.showState('pause');
-        // self.progress.slider('option', 'max', self.duration);
-        // self.progress.slider('option', 'value', 0);
-        // self.meta.find('.time').show();
-        // self.spinner.hide();
-
         self.resetSlider();
         self.resetMeta();
         self.audio.play();
