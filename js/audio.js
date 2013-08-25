@@ -135,13 +135,13 @@ var SOUND = {
             }
         }
 
-        if (e.which === 93) {
-            self.next();
-        }
+        // if (e.which === 93) {
+        //     self.next();
+        // }
 
-        if (e.which === 91) {
-            self.prev();
-        }  
+        // if (e.which === 91) {
+        //     self.prev();
+        // }
     },    
 
     play : function(e){
@@ -249,7 +249,7 @@ var SOUND = {
             prevSound = currSound.prev();
 
         if (!prevSound.length) {
-            prevSound = self.meta.find('a.track:last-child');
+            prevSound = self.meta.find('a:last-child');
         }
 
         prevSound.addClass('on');
