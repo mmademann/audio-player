@@ -199,7 +199,7 @@ body a {text-decoration: none;}
 	width:8px;
 	margin:auto;
 	position:absolute;
-	right:15px;top:-85px;
+	right:15px;top:-86px;
 	-webkit-animation: rotation .6s infinite linear;
 	-moz-animation: rotation .6s infinite linear;
 	-o-animation: rotation .6s infinite linear;
@@ -273,7 +273,8 @@ body a {text-decoration: none;}
 	cursor:pointer;
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
 	font-weight: 300;
-	
+	border:1px solid black;
+
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;

@@ -202,13 +202,14 @@ var SOUND = {
             currSound = self.tracks.find('.on').removeClass('on'),
             nextSound = $(this).is('.track') ? $(this) : currSound.next();
 
+        self.resetMeta();
+        self.resetSlider();
+
         if (!nextSound.length) {
             nextSound = self.tracks.find('a.track').eq(0);
         }
 
         nextSound.addClass('on');
-
-        self.resetMeta();
 
         var name = nextSound.data('name');
 
@@ -222,13 +223,14 @@ var SOUND = {
             currSound = self.tracks.find('.on').removeClass('on'),
             prevSound = currSound.prev();
         
+        self.resetMeta();
+        self.resetSlider();        
+
         if (!prevSound.length) {
             prevSound = self.tracks.find('a:last-child');
         }
 
         prevSound.addClass('on');
-
-        self.resetMeta();            
 
         var name = prevSound.data('name');
 
