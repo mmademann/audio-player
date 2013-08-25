@@ -28,7 +28,7 @@ var SOUND = {
         this.audio.src  = this.audio.canPlayType('audio/mpeg;') 
                           ? 'music/'+track+'.mp3' : 'music/'+track+'.ogg';
 
-        // this.audio.load();
+        this.audio.load();
 
         this.events();
     },
@@ -44,8 +44,6 @@ var SOUND = {
             .on('click', '.nexter', this.nextTrack)
             .on('click', '#stop', this.stop)
             .on('click', '#volume', this.volume);
-
-            // $('.nexter').off('click').on('click', this.nextTrack);
 
         $(window).keypress(this.spacebar);
 
@@ -108,7 +106,7 @@ var SOUND = {
         self.audio.src  = self.audio.canPlayType('audio/mpeg;') 
                           ? 'music/'+name+'.mp3' : 'music/'+name+'.ogg';
         
-        // self.audio.load();
+        self.audio.load();
     },
 
     showState : function(state){
