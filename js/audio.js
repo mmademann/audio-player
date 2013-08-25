@@ -64,7 +64,7 @@ var SOUND = {
 
         this.audio.addEventListener('timeupdate', this.tickTock);
         this.audio.addEventListener('loadedmetadata', this.loadedMeta);
-        this.audio.addEventListener('canplaythrough', this.loadedData);
+        this.audio.addEventListener('canplay', this.loadedData);
         this.audio.addEventListener('ended', this.ended);               
     },
 
@@ -199,15 +199,11 @@ var SOUND = {
 
         var self = SOUND,
 
-            currSound = self.tracks.find('.on'),
+            currSound = self.tracks.find('.on').removeClass('on'),
 
             nextSound = $(this).is('.track') ? $(this) : currSound.next();
 
-        self.clearActives();
-        self.setTrackName();
-        self.showState('play');        
-
-        self.stop();
+        // self.stop();
 
         if (!nextSound.length) {
             nextSound = self.tracks.find('a.track').eq(0);
@@ -288,8 +284,9 @@ var SOUND = {
         if (secs == self.lastTime){
             // return false;
         }
-        
-        self.showState('pause');
+
+        self.setTrackName();
+        self.showState('pause');          
         self.progress.slider('option', 'max', self.duration);
         self.progress.slider('option', 'value', 0);
         self.audio.play();
