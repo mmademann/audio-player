@@ -67,8 +67,8 @@ var SOUND = {
         }
 
         this.audio.addEventListener('timeupdate', this.tickTock);
-        this.audio.addEventListener('loadedmetadata', this.loadedMeta, false);
-        this.audio.addEventListener('loadeddata', this.loadedData, false);
+        this.audio.addEventListener('loadedmetadata', this.loadedMeta);
+        this.audio.addEventListener('loadeddata', this.loadedData);
         this.audio.addEventListener('ended', this.ended);               
     },
 
