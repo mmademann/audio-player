@@ -66,7 +66,7 @@ var SOUND = {
         this.audio.addEventListener('ended', this.ended);               
         this.audio.addEventListener('timeupdate', this.timeUpdate);
         this.audio.addEventListener('loadedmetadata', this.loadedMeta);
-        this.audio.addEventListener('canplay', this.loadedData);
+        this.audio.addEventListener('canplay', this.canPlay);
     },    
 
     play : function(e){
@@ -280,7 +280,7 @@ var SOUND = {
         SOUND.duration = this.duration;
     },
 
-    loadedData : function() {
+    canPlay : function() {
         var self = SOUND,
             secs = parseInt(this.currentTime, 10);
 
@@ -290,10 +290,10 @@ var SOUND = {
 
         self.inProg = true;
 
-        // self.showState('pause');
+        self.showState('pause');
         self.resetSlider();
         self.resetMeta();
-        // this.play();
+        this.play();
 
         if (!self.isMobile){
             setTimeout(function(){self.inProg = false}, 100);
