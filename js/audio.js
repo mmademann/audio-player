@@ -275,7 +275,7 @@ var SOUND = {
         var self = SOUND,
             secs = parseInt(self.audio.currentTime, 10);
 
-        if (secs == self.lastTime || self.inProg){
+        if (secs == self.lastTime || (self.inProg && !self.isMobile){
             return false;
         }
 
