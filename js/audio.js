@@ -66,7 +66,7 @@ var SOUND = {
         this.audio.addEventListener('ended', this.ended);               
         this.audio.addEventListener('timeupdate', this.timeUpdate);
         this.audio.addEventListener('loadedmetadata', this.loadedMeta);
-        this.audio.addEventListener('canplay', this.canPlay);
+        this.audio.addEventListener('canplaythrough', this.canPlayThrough);
     },    
 
     play : function(e){
@@ -280,7 +280,7 @@ var SOUND = {
         SOUND.duration = this.duration;
     },
 
-    canPlay : function() {
+    canPlayThrough : function() {
         var self = SOUND,
             secs = parseInt(this.currentTime, 10);
 
