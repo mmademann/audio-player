@@ -5,11 +5,11 @@ if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigat
 
 var SOUND = {
 
-    pageLoad    : true,
     outer       : $('#outer'),
     progress    : $('#progress'),
     control     : $('#control'),
     volume      : $('#volume'),
+    spinner     : $('#spinner'),
     tracks      : $('#tracks'),
     meta        : $('#meta'),
 
@@ -62,7 +62,7 @@ var SOUND = {
                 .on('mousedown', 'a', this.mouseDown);
         }
 
-        this.audio.addEventListener('timeupdate', this.tickTock);
+        this.audio.addEventListener('timeupdate', this.timeUpdate);
         this.audio.addEventListener('loadedmetadata', this.loadedMeta);
         this.audio.addEventListener('canplay', this.loadedData);
         this.audio.addEventListener('ended', this.ended);               
@@ -79,14 +79,7 @@ var SOUND = {
     },
 
     getFirstTrack : function(){
-
-        var name = this.tracks
-                        .find('a')
-                        .eq(0)
-                        .addClass('on')
-                        .data('name');
-
-        return name;
+        return this.tracks.find('a').eq(0).addClass('on').data('name');
     },
 
     clearActives : function(){
@@ -94,13 +87,8 @@ var SOUND = {
     },    
 
     showState : function(state){
-        var on  = 'pause', 
-            off = 'play';
-
-        if (state == 'play') {
-            on  = 'play';
-            off = 'pause';
-        }
+        var on  = state == 'play' ? 'play'  : 'pause',
+            off = state == 'play' ? 'pause' : 'play';
 
         this.control.addClass(on).removeClass(off);
     },
@@ -108,10 +96,8 @@ var SOUND = {
     spacebar : function(e){
         var self = SOUND;        
 
-       if (e.which === 32) {
-
+        if (e.which === 32) {
             var isPlaying = !self.audio.paused;
-
             if (isPlaying) {
                 self.pause();
             } else {
@@ -179,7 +165,6 @@ var SOUND = {
     },
 
     slide : function(e) {
-
         var self  = SOUND,
             value = self.progress.slider('option', 'value');
 
@@ -190,18 +175,21 @@ var SOUND = {
 
     ended : function() {
         var self = SOUND;
-
         self.nextTrack();
+    },
+
+    toggleSpinner : function() {
+        this.spinner.toggle();
     },
 
     nextTrack : function(e){
         try{e.preventDefault()}catch(e){}
 
         var self = SOUND,
-
             currSound = self.tracks.find('.on').removeClass('on'),
-
             nextSound = $(this).is('.track') ? $(this) : currSound.next();
+
+        self.toggleSpinner();
 
         if (!nextSound.length) {
             nextSound = self.tracks.find('a.track').eq(0);
@@ -218,9 +206,10 @@ var SOUND = {
         try{e.preventDefault()}catch(e){}
 
         var self = SOUND,
-
             currSound = self.tracks.find('.on').removeClass('on'),
             prevSound = currSound.prev();
+
+        self.toggleSpinner();            
         
         if (!prevSound.length) {
             prevSound = self.tracks.find('a:last-child');
@@ -235,7 +224,6 @@ var SOUND = {
 
     setTrackName : function(){
         var title = this.tracks.find('.on').text();
-
         this.meta.find('.name').text(title);
     },
 
@@ -257,7 +245,7 @@ var SOUND = {
         this.meta.find('.time').text(minutes+':'+seconds);        
     },
 
-    tickTock : function() {
+    timeUpdate : function() {
         var self = SOUND,
             secs = parseInt(self.audio.currentTime, 10);
 
@@ -270,9 +258,7 @@ var SOUND = {
     },
 
     loadedMeta : function() {
-        var self = SOUND;
-
-        self.duration = this.duration;
+        SOUND.duration = this.duration;
     },
 
     loadedData : function() {
@@ -280,9 +266,10 @@ var SOUND = {
             secs = parseInt(self.audio.currentTime, 10);
 
         if (secs == self.lastTime){
-            // return false;
+            return false;
         }
 
+        self.toggleSpinner();
         self.setTrackName();
         self.showState('pause');          
         self.progress.slider('option', 'max', self.duration);
@@ -291,9 +278,6 @@ var SOUND = {
     }
 }
 
-
 $(document).ready(function() {
-
     SOUND.init();
-
 });
