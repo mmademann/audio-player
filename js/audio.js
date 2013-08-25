@@ -285,8 +285,9 @@ var SOUND = {
     loadStart : function(){
         var self = SOUND;
 
+        alert('loadstart');
+
         if (self.isMobile){
-            alert('loadstart');
             self.resetSlider();
             self.resetMeta();
         }
@@ -295,6 +296,8 @@ var SOUND = {
     canPlayThrough : function() {
         var self = SOUND,
             secs = parseInt(this.currentTime, 10);
+
+        alert('canPlayThrough');
 
         if (secs == self.lastTime || 
            (self.inProg && !self.isMobile)) {
