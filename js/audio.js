@@ -29,7 +29,6 @@ var SOUND = SOUND || {
                           ? 'music/'+track+'.mp3' : 'music/'+track+'.ogg';
 
         this.events();
-        alert('PLEASE NOW');
     },
 
     'events' : function(){
@@ -288,8 +287,8 @@ var SOUND = SOUND || {
 
         if (isMobile){
             // alert('im mobile');
-            self.resetSlider();
-            self.resetMeta();
+            // self.resetSlider();
+            // self.resetMeta();
         }
     },
 
@@ -304,7 +303,7 @@ var SOUND = SOUND || {
             return false;
         }
 
-        // alert('canplay');
+        alert('canplay');
 
         self.inProg = true;
 
