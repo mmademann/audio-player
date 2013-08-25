@@ -210,7 +210,7 @@ var SOUND = {
         
         self.audio.load();
 
-        self.audio.addEventListener('canplay', self.play);      
+        // self.audio.addEventListener('canplay', self.play);      
     },
 
     showState : function(state){
