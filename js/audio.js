@@ -220,7 +220,8 @@ var SOUND = {
         var self = SOUND,
 
             currSound = self.meta.find('.on').removeClass('on'),
-            nextSound = currSound.next();
+            currIndex = currSound.index(),
+            nextSound = self.meta.find('a').eq(currIndex+1);
 
         if (!nextSound.length) {
             nextSound = self.meta.find('a.track').eq(0);
@@ -230,7 +231,7 @@ var SOUND = {
 
         var name = nextSound.data('name');
 
-        alert('new');
+        alert('new2');
         alert(name);
 
         self.setSource(name);
