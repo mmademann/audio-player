@@ -67,46 +67,6 @@ var SOUND = {
         this.audio.addEventListener('timeupdate', this.timeUpdate);
         this.audio.addEventListener('loadedmetadata', this.loadedMeta);
         this.audio.addEventListener('canplay', this.loadedData);
-    },
-
-    setSource : function(name){
-
-        var self = SOUND;        
-
-        self.audio.src  = self.audio.canPlayType('audio/mpeg;') 
-                          ? 'music/'+name+'.mp3' : 'music/'+name+'.ogg';
-        
-        self.audio.load();
-
-        self.audio.addEventListener('canplay', self.play);      
-    },
-
-    getFirstTrack : function(){
-        return this.tracks.find('a').eq(0).addClass('on').data('name');
-    },
-
-    clearActives : function(){
-        this.tracks.find('a').removeClass('on');        
-    },    
-
-    showState : function(state){
-        var on  = state == 'play' ? 'play'  : 'pause',
-            off = state == 'play' ? 'pause' : 'play';
-
-        this.control.addClass(on).removeClass(off);
-    },
-
-    spacebar : function(e){
-        var self = SOUND;        
-
-        if (e.which === 32) {
-            var isPlaying = !self.audio.paused;
-            if (isPlaying) {
-                self.pause();
-            } else {
-                self.play();
-            }
-        }
     },    
 
     play : function(e){
@@ -241,6 +201,25 @@ var SOUND = {
         self.setSource(name);
     },
 
+    setSource : function(name){
+
+        var self = SOUND;        
+
+        self.audio.src  = self.audio.canPlayType('audio/mpeg;') 
+                          ? 'music/'+name+'.mp3' : 'music/'+name+'.ogg';
+        
+        self.audio.load();
+
+        self.audio.addEventListener('canplay', self.play);      
+    },
+
+    showState : function(state){
+        var on  = state == 'play' ? 'play'  : 'pause',
+            off = state == 'play' ? 'pause' : 'play';
+
+        this.control.addClass(on).removeClass(off);
+    },
+
     setTrackName : function(){
         var title = this.tracks.find('.on').text();
         this.meta.find('.name').text(title);
@@ -262,6 +241,27 @@ var SOUND = {
         }
 
         this.meta.find('.time').text(minutes+':'+seconds);        
+    },    
+
+    getFirstTrack : function(){
+        return this.tracks.find('a').eq(0).addClass('on').data('name');
+    },
+
+    clearActives : function(){
+        this.tracks.find('a').removeClass('on');        
+    },
+
+    spacebar : function(e){
+        var self = SOUND;        
+
+        if (e.which === 32) {
+            var isPlaying = !self.audio.paused;
+            if (isPlaying) {
+                self.pause();
+            } else {
+                self.play();
+            }
+        }
     },
 
     timeUpdate : function() {
