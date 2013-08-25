@@ -48,7 +48,7 @@ var SOUND = {
         var self    = SOUND;
 
         var events = isMobile ? 
-                    'touchstart' : 
+                    'touchend' : 
                     'click';
 
         this.boss
@@ -150,9 +150,7 @@ var SOUND = {
     },
 
     volume : function(e){
-        try{e.preventDefault()}catch(e){}            
-        console.log($(this));
-        console.log($(this).is('.mute'));
+        try{e.preventDefault()}catch(e){}
 
         var self = SOUND;
 
