@@ -308,6 +308,8 @@ var SOUND = {
             return false;
         }
 
+        alert('canPlayThrough pass');
+
         self.inProg = true;
 
         // self.showState('pause');
