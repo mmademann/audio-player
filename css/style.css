@@ -69,11 +69,6 @@ html, .gradient {
 	transition: all .4s ease;
 }
 
-.button:hover {
-	opacity: 0.75;
-	filter:alpha(opacity=75);
-}
-
 #control.play {
 	background-position: 6px 5px;
 }
@@ -206,19 +201,27 @@ html, .gradient {
 /** smartphone (portrait and landscape) **/
 @media only screen and (min-width : 320px) and (max-width : 480px) {
 
-	#progress {width:80%;}
-	#time {width:80%;}	
+	#progress,
+	
+	#time {
+		width:80%;
+	}	
 
 }
 
 /** greater than 481 width **/
 @media only screen and (min-width : 481px) {
 	
-	body, html {height: 100%}
+	body, html {
+		height: 100%
+	}
 
-	#meta a:hover {background:#444;
+	#meta a:hover {
+		background:#444;
+	}
 
+	.button:hover {
+		opacity: 0.75;
+		filter:alpha(opacity=75);
+	}
 }
-
-
-
