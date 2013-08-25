@@ -199,11 +199,13 @@ var SOUND = {
         try{e.preventDefault()}catch(e){}
 
         var self = SOUND,
-            currSound = self.tracks.find('.on').removeClass('on'),
+            currSound = self.tracks.find('.on'),
             nextSound = $(this).is('.track') ? $(this) : currSound.next();
 
-        self.resetMeta();
         self.resetSlider();
+        self.resetMeta();
+
+        currSound.removeClass('on');
 
         if (!nextSound.length) {
             nextSound = self.tracks.find('a.track').eq(0);
@@ -220,11 +222,13 @@ var SOUND = {
         try{e.preventDefault()}catch(e){}
 
         var self = SOUND,
-            currSound = self.tracks.find('.on').removeClass('on'),
+            currSound = self.tracks.find('.on'),
             prevSound = currSound.prev();
         
-        self.resetMeta();
         self.resetSlider();        
+        self.resetMeta();
+
+        currSound.removeClass('on');
 
         if (!prevSound.length) {
             prevSound = self.tracks.find('a:last-child');
