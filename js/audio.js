@@ -16,7 +16,7 @@ var SOUND = SOUND || {
 
     'init' : function(){
 
-        alert('init');
+        alert('inits');
 
         this.progress.slider();  
 
@@ -298,14 +298,14 @@ var SOUND = SOUND || {
         var self = SOUND,
             secs = parseInt(this.currentTime, 10);
 
-        alert('at least here');
+        // alert('at least here');
 
         if (secs == self.lastTime || 
            self.inProg) {
             return false;
         }
 
-        alert('canplay');
+        // alert('canplay');
 
         self.inProg = true;
 
