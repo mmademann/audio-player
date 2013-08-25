@@ -205,12 +205,11 @@ var SOUND = {
         self.resetMeta();
         self.resetSlider();
 
-        currSound.removeClass('on');
-
         if (!nextSound.length) {
             nextSound = self.tracks.find('a.track').eq(0);
         }
 
+        currSound.removeClass('on');
         nextSound.addClass('on');
 
         var name = nextSound.data('name');
@@ -228,12 +227,11 @@ var SOUND = {
         self.resetMeta();
         self.resetSlider();        
 
-        currSound.removeClass('on');
-
         if (!prevSound.length) {
             prevSound = self.tracks.find('a:last-child');
         }
-
+        
+        currSound.removeClass('on');
         prevSound.addClass('on');
 
         var name = prevSound.data('name');
