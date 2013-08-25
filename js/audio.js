@@ -186,6 +186,7 @@ var SOUND = {
     resetProgress : function() {
         this.toggleSpinner();
         this.setTrackName();
+        self.progress.slider('option', 'max', self.duration);        
         this.progress.slider('option', 'value', 0);
         this.setCurrentTime(0);          
     },    
@@ -279,18 +280,13 @@ var SOUND = {
 
         self.inProg = true;
 
-        self.setTrackName();
-        self.toggleSpinner();
-        self.showState('pause');          
-        self.progress.slider('option', 'max', self.duration);
-        self.progress.slider('option', 'value', 0);
-
-        // self.resetProgress        
+        self.showState('pause');
+        self.resetProgress        
         self.audio.play();
 
-        setTimeout(function(){
-            self.inProg = false;
-        }, 100);
+        if (!self.isMobile){
+            setTimeout(function(){self.inProg = false}, 100);
+        }
     }
 }
 
