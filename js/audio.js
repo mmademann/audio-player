@@ -203,8 +203,6 @@ var SOUND = {
 
             nextSound = $(this).is('.track') ? $(this) : currSound.next();
 
-        // self.stop();
-
         if (!nextSound.length) {
             nextSound = self.tracks.find('a.track').eq(0);
         }

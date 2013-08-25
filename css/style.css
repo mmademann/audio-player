@@ -109,7 +109,7 @@ body a {text-decoration: none;}
 	float:none;
 	width:30%;
 	height: 30px;
-	margin:30px auto 50px;
+	margin:30px auto 60px;
 	border: 1px solid black;
 
 	-webkit-border-radius: 20px;
@@ -158,9 +158,9 @@ body a {text-decoration: none;}
 
 #meta span {
 	position: absolute;
-	top:-72px; right:15px;
+	top:-82px; right:15px;
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 	
-	font-size:12px;
+	font-size:14px;
 	color:#EE5C00;
 	color:#777;
 	display: block;
@@ -173,8 +173,7 @@ body a {text-decoration: none;}
 }
 
 #meta .name {
-	right:auto;left:15px;top:-40px;
-	font-size:12px;
+	right:auto;left:15px;top:-50px;
 }
 
 #tracks {
