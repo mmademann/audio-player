@@ -94,7 +94,6 @@ var SOUND = {
     },    
 
     showState : function(state){
-
         var on  = 'pause', 
             off = 'play';
 
@@ -107,7 +106,6 @@ var SOUND = {
     },
 
     spacebar : function(e){
-
         var self = SOUND;        
 
        if (e.which === 32) {
@@ -167,7 +165,6 @@ var SOUND = {
     },
 
     mouseDown : function() {
-
         var self = SOUND;
 
         self.audio.pause();
@@ -175,7 +172,6 @@ var SOUND = {
     },
 
     mouseUp : function() {
-
         var self = SOUND;
 
         self.audio.play();
@@ -193,7 +189,6 @@ var SOUND = {
     },
 
     ended : function() {
-
         var self = SOUND;
 
         self.nextTrack();
@@ -209,8 +204,10 @@ var SOUND = {
             nextSound = $(this).is('.track') ? $(this) : currSound.next();
 
         self.clearActives();
+        self.setTrackName();
+        self.showState('play');        
 
-        // self.stop();
+        self.stop();
 
         if (!nextSound.length) {
             nextSound = self.tracks.find('a.track').eq(0);
@@ -243,7 +240,6 @@ var SOUND = {
     },
 
     setTrackName : function(){
-
         var title = this.tracks.find('.on').text();
 
         this.meta.find('.name').text(title);
@@ -280,14 +276,12 @@ var SOUND = {
     },
 
     loadedMeta : function() {
-
         var self = SOUND;
 
         self.duration = this.duration;
     },
 
     loadedData : function() {
-
         var self = SOUND,
             secs = parseInt(self.audio.currentTime, 10);
 
@@ -295,13 +289,10 @@ var SOUND = {
             // return false;
         }
         
-        self.setTrackName();
-        self.showState('pause');        
+        self.showState('pause');
         self.progress.slider('option', 'max', self.duration);
         self.progress.slider('option', 'value', 0);
         self.audio.play();
-
-        self.tracks.find('.on').show();
     }
 }
 
