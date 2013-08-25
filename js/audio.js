@@ -202,8 +202,8 @@ var SOUND = {
             currSound = self.tracks.find('.on'),
             nextSound = $(this).is('.track') ? $(this) : currSound.next();
 
-        self.resetSlider();
         self.resetMeta();
+        self.resetSlider();
 
         currSound.removeClass('on');
 
@@ -225,8 +225,8 @@ var SOUND = {
             currSound = self.tracks.find('.on'),
             prevSound = currSound.prev();
         
-        self.resetSlider();        
         self.resetMeta();
+        self.resetSlider();        
 
         currSound.removeClass('on');
 
