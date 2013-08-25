@@ -296,7 +296,7 @@ var SOUND = {
         self.resetMeta();
         this.play();
 
-        if (secs == self.lastTime || !self.isMobile){
+        if (!self.isMobile){
             setTimeout(function(){self.inProg = false}, 100);
         }
     }
