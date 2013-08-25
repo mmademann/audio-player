@@ -63,10 +63,10 @@ var SOUND = {
                 .on('mousedown', 'a', this.mouseDown);
         }
 
-        this.audio.addEventListener('canplay', this.loadedData);
+        this.audio.addEventListener('ended', this.ended);               
         this.audio.addEventListener('timeupdate', this.timeUpdate);
         this.audio.addEventListener('loadedmetadata', this.loadedMeta);
-        this.audio.addEventListener('ended', this.ended);               
+        this.audio.addEventListener('canplay', this.loadedData);
     },
 
     setSource : function(name){
