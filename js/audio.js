@@ -47,18 +47,14 @@ var SOUND = {
 
         var self    = SOUND;
 
-        var events = isMobile ? 
-                    'touchend' : 
-                    'click';
-
-        this.boss
-            .on('click', '.play', this.play)
-            .on('click', '.pause', this.pause)
-            .on('click', '.track', this.change)
-            .on('click', '.stop', this.stop)
-            .on('click', '.volume', this.volume);
-
         if (isMobile) {
+
+            this.boss
+                .on('touch', '.play', this.play)
+                .on('touch', '.pause', this.pause)
+                .on('touch', '.track', this.change)
+                .on('touch', '.stop', this.stop)
+                .on('touch', '.volume', this.volume);            
 
             this.progress
                 .on('touchmove', this.slide)
@@ -67,6 +63,13 @@ var SOUND = {
                 .on('touchstart', 'a', this.mouseDown);
 
         } else {
+
+            this.boss
+                .on('click', '.play', this.play)
+                .on('click', '.pause', this.pause)
+                .on('click', '.track', this.change)
+                .on('click', '.stop', this.stop)
+                .on('click', '.volume', this.volume);            
 
             this.progress
                 .on('slide', this.slide)
@@ -151,6 +154,8 @@ var SOUND = {
 
     volume : function(e){
         try{e.preventDefault()}catch(e){}
+
+        alert($(this).is('.mute'));
 
         var self = SOUND;
 
