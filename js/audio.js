@@ -5,6 +5,7 @@ if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigat
 
 var SOUND = {
 
+    pageLoad    : true,
     theboss     : $('#theboss'),
     progress    : $('#progress'),
     control     : $('#control'),
@@ -29,7 +30,7 @@ var SOUND = {
 
         this.audio.load();
 
-        this.events();      
+        this.events();
     },
 
     events : function(){
@@ -39,8 +40,8 @@ var SOUND = {
             .on('click', '.pause', this.pause)
             .on('click', '.track', this.changeSong)
             .on('click', '#stop', this.stop)
-            .on('click', '#next', this.next)
-            .on('click', '#prev', this.prev)
+            .on('click', '#next', this.nextTrack)
+            .on('click', '#prev', this.prevTrack)
             .on('click', '#volume', this.volume);
 
         $(window).keypress(this.spacebar);
@@ -218,10 +219,10 @@ var SOUND = {
 
         var self = SOUND;
 
-        self.next();
+        // self.nextTrack();
     },
 
-    next : function(e){
+    nextTrack : function(e){
         try{e.preventDefault()}catch(e){}
 
         var self = SOUND;
@@ -240,7 +241,7 @@ var SOUND = {
         self.setSource(name);
     },
 
-    prev : function(e){
+    prevTrack : function(e){
         try{e.preventDefault()}catch(e){}
 
         var self = SOUND;
@@ -309,6 +310,11 @@ var SOUND = {
         self.progress.slider('option', 'max', self.duration);
         self.progress.slider('option', 'value', 0);
         self.audio.play();
+
+        if (self.pageLoad) {
+            self.stop();
+            self.pageLoad = !self.pageLoad;
+        }
     }
 }
 
