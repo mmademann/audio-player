@@ -231,8 +231,7 @@ var SOUND = {
 
         var name = nextSound.data('name');
 
-        alert('new3');
-        alert(name);
+        alert('new3: '+name);
 
         self.setSource(name);
     },
