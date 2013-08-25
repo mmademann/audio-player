@@ -52,11 +52,11 @@ var SOUND = {
                     'click';
 
         this.boss
-            .on(events, '.play', this.play)
-            .on(events, '.pause', this.pause)
-            .on(events, '.track', this.change)
-            .on(events, '#stop', this.stop)   
-            .on(events, '#volume', this.volume);
+            .on('click', '.play', this.play)
+            .on('click', '.pause', this.pause)
+            .on('click', '.track', this.change)
+            .on('click', '#stop', this.stop)
+            .on('click', '#volume', this.volume);
 
         if (isMobile) {
 
