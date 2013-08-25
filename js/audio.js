@@ -33,8 +33,6 @@ var SOUND = SOUND || {
 
     events : function(){
 
-        alert('events');
-
         this.outer
             .off('click')
             .on('click', '.play', this.play)
@@ -68,7 +66,9 @@ var SOUND = SOUND || {
         this.audio.addEventListener('loadedmetadata', this.loadedMeta);
         this.audio.addEventListener('canplaythrough', this.canPlayThrough);
 
-        // this.audio.load();
+        alert('new events');
+
+        this.audio.load();
         
         this.mobileLoad();
     },
@@ -212,7 +212,7 @@ var SOUND = SOUND || {
         self.audio.src  = self.audio.canPlayType('audio/mpeg;') 
                           ? 'music/'+name+'.mp3' : 'music/'+name+'.ogg';
         
-        // self.audio.load();
+        self.audio.load();
 
         self.play();
     },
