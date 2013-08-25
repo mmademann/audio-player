@@ -289,7 +289,7 @@ var SOUND = {
     loadStart : function(){
         var self = SOUND;
 
-        alert('loadstart');
+        // alert('loadstart');
 
         // if (self.isMobile){
         //     self.resetSlider();
