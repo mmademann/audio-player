@@ -51,16 +51,16 @@ var SOUND = {
             this.progress
                 .on('touchmove', this.slide)
                 .on('touchend', this.slide)
-                .on('touchend', this.mouseUp)
-                .on('touchstart', 'a', this.mouseDown);
+                .on('touchend', this.scrubUp)
+                .on('touchstart', 'a', this.scrubDown);
 
         } else {           
 
             this.progress
                 .on('slide', this.slide)
                 .on('mouseup', this.slide)
-                .on('mouseup', this.mouseUp)
-                .on('mousedown', 'a', this.mouseDown);
+                .on('mouseup', this.scrubUp)
+                .on('mousedown', 'a', this.scrubDown);
         }
 
         this.audio.addEventListener('ended', this.ended);               
@@ -113,14 +113,14 @@ var SOUND = {
         $(this).toggleClass('mute');        
     },
 
-    mouseDown : function() {
+    scrubDown : function() {
         var self = SOUND;
 
         self.audio.pause();
         self.showState('play');
     },
 
-    mouseUp : function() {
+    scrubUp : function() {
         var self = SOUND;
 
         self.audio.play();
