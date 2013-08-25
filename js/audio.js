@@ -288,7 +288,7 @@ var SOUND = SOUND || {
         var self = SOUND;
 
         if (isMobile){
-            alert('im mobile');
+            // alert('im mobile');
             self.resetSlider();
             self.resetMeta();
         }
