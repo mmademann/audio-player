@@ -243,8 +243,9 @@ body a {text-decoration: none;}
 	#meta,
 	#progress {
 		width:80%;
-	}	
+	}
 
+	#tracks a {padding:10px;}
 }
 
 /** greater than 481 width **/
