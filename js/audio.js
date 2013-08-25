@@ -296,6 +296,8 @@ var SOUND = {
         var self = SOUND,
             secs = parseInt(this.currentTime, 10);
 
+        alert('at least');
+
         if (secs == self.lastTime || 
            self.inProg) {
             return false;
