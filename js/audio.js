@@ -180,6 +180,7 @@ var SOUND = {
     },
 
     toggleSpinner : function() {
+        this.meta.find('.time').toggle();
         this.spinner.toggle();
     },
 
