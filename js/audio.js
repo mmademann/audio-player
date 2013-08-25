@@ -287,7 +287,7 @@ var SOUND = {
         var self = SOUND;
 
         if (isMobile){
-            // alert('isMobile: '+ isMobile);
+            alert('isMobile: '+ isMobile);
             self.resetSlider();
             self.resetMeta();
         }
@@ -302,7 +302,7 @@ var SOUND = {
             return false;
         }
 
-        console.log(self.inProg);
+        alert('canplay');
 
 
         // alert('canPlayThrough pass');
