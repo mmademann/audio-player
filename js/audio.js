@@ -39,6 +39,8 @@ var SOUND = {
             .on('click', '.pause', this.pause)
             .on('click', '.track', this.changeSong)
             .on('click', '#stop', this.stop)
+            .on('click', '#next', this.next)
+            .on('click', '#prev', this.prev)
             .on('click', '#volume', this.volume);
 
         $(window).keypress(this.spacebar);
@@ -120,18 +122,26 @@ var SOUND = {
 
     spacebar : function(e){
 
+        var self = SOUND;        
+
        if (e.which === 32) {
 
-            var self = SOUND,
-
-                isPlaying = !self.audio.paused;
+            var isPlaying = !self.audio.paused;
 
             if (isPlaying) {
                 self.pause();
             } else {
                 self.play();
             }
-        }        
+        }
+
+        if (e.which === 93) {
+            self.next();
+        }
+
+        if (e.which === 91) {
+            self.prev();
+        }  
     },    
 
     play : function(e){
@@ -204,18 +214,43 @@ var SOUND = {
         self.audio.currentTime = value;
     },
 
-    ended : function(e) {
+    ended : function() {
 
-        var self        = SOUND,
+        var self = SOUND;
 
-            currSound   = self.meta.find('.on').removeClass('on'),
-            nextSound   = currSound.next();
+        self.next();
+    },
+
+    next : function(e){
+        try{e.preventDefault()}catch(e){}
+
+        var self = SOUND;
+
+        var currSound = self.meta.find('.on').removeClass('on'),
+            nextSound = currSound.next();
 
         if (!nextSound.length) {
             nextSound = self.meta.find('a.track').eq(0);
         }
 
         var name = nextSound.addClass('on').data('name');
+
+        self.setSource(name);
+    },
+
+    prev : function(e){
+        try{e.preventDefault()}catch(e){}
+
+        var self = SOUND;
+
+        var currSound = self.meta.find('.on').removeClass('on'),
+            prevSound = currSound.prev();
+
+        if (!prevSound.length) {
+            prevSound = self.meta.find('a.track:last-child');
+        }
+
+        var name = prevSound.addClass('on').data('name');
 
         self.setSource(name);
     },    

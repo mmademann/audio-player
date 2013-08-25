@@ -34,7 +34,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', end
 	overflow: hidden;
 	width: 100%;
 	height: 100%;
-	padding: 20px;
+	/*padding: 20px;*/
 	margin:0px auto;
 
 	-webkit-box-shadow: 0px 0px 13px rgba(0,0,0,.3),inset 0 1px 0px rgba(255,255,255,.2);
@@ -58,8 +58,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', end
 }
 
 #buttons {
-	width:260px;
-	margin:0 auto;
+	width:250px;
+	margin:20px auto 0;
 }
 
 
@@ -69,8 +69,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', end
 	height: 60px;
 	background-image: url(../images/sprite3.png);
 	background-repeat: no-repeat;
-	margin-right: 10px;
-	margin-left: 10px;
+	margin: 0 10px;
 
 	-webkit-transition: all .4s ease;
 	-moz-transition: all .4s ease;
@@ -80,12 +79,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', end
 }
 
 #control {
-	background-position: -100px -13px;
+	background-position: -95px -13px;
 	/*background-position: -32px 5px;*/
 }
 
 #control.play {
-	background-position: -20px -13px;
+	background-position: -15px -13px;
 	/*background-position: 6px 5px;*/
 }
 
@@ -102,6 +101,22 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', end
 #stop {
 	background-position: -180px -12px;
 	/*background-position: -146px 5px;*/	
+}
+
+.arrow {
+	width:30px;
+	position: absolute;
+	top:-86px;
+	left:-50px;
+}
+
+#prev {
+	background-position: -525px -12px;
+}
+
+#next {
+	background-position: -444px -12px;
+	left:auto;right:-50px;
 }
 
 #progress {
@@ -169,7 +184,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', end
 	display:block;
 	margin:0 auto 30px;
 	padding:10px;
+	width:90%;
 	clear:both;
+
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;	
 
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
@@ -187,7 +208,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', end
 	color:#EE5C00;
 	font-size:16px;
 	padding:15px 10px;
-	margin:5px;
+	margin:8px 5px;
 	cursor:pointer;
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
 	font-weight: 300;
@@ -222,9 +243,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', end
 /** smartphone (portrait and landscape) **/
 @media only screen and (min-width : 320px) and (max-width : 480px) {
 
-	#progress,
-	#time {
-		width:80%;
+	#time,
+	#progress {
+		width:70%;
 	}	
 
 }
@@ -232,14 +253,20 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', end
 /** greater than 481 width **/
 @media only screen and (min-width : 481px) {
 	
-	body, html {
+	body, 
+	html {
 		height: 100%
 	}
 
 	#meta a:hover {
+		background:#26282B;
+		color:#EE5C00;
+	}
+
+	#meta a.on:hover {
 		background:#EE5C00;
 		color:#000;
-	}
+	}	
 
 	.button:hover {
 		opacity: 0.75;
