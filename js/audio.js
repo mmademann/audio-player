@@ -1,5 +1,5 @@
 var isMobile = false;
-if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     isMobile = true;
 }
 
@@ -27,9 +27,7 @@ var SOUND = {
         this.audio.src  = this.audio.canPlayType('audio/mpeg;') 
                           ? 'music/'+track+'.mp3' : 'music/'+track+'.ogg';
 
-        this.audio.load(function(){
-            alert('loaded');
-        });
+        this.audio.load();
 
         this.events();      
     },
@@ -92,10 +90,7 @@ var SOUND = {
     },
 
     clearActives : function(e){
-
-        var self = SOUND;
-
-        self.meta
+        this.meta
             .find('a.track')
             .removeClass('on');        
     },
@@ -184,15 +179,19 @@ var SOUND = {
     },
 
     mouseDown : function(e) {
+
         var self = SOUND;
+
         self.audio.pause();
-        // self.showState('play');
+        self.showState('play');
     },
 
     mouseUp : function(e) {
-        var self = SOUND;        
+
+        var self = SOUND;
+
         self.audio.play();
-        // self.showState('pause');
+        self.showState('pause');
     },
 
     slide : function(e) {
@@ -215,6 +214,7 @@ var SOUND = {
         if (!nextSound.length) {
             nextSound = self.meta.find('a.track').eq(0);
         }
+
         var name = nextSound.addClass('on').data('name');
 
         self.setSource(name);
@@ -251,7 +251,9 @@ var SOUND = {
     },
 
     loadMeta : function(e) {
+
         var self = SOUND;
+
         self.duration = this.duration;
     },
 
@@ -268,7 +270,6 @@ var SOUND = {
         self.progress.slider('option', 'max', self.duration);
         self.progress.slider('option', 'value', 0);
         self.audio.play();
-
     }
 }
 
