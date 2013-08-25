@@ -27,7 +27,9 @@ var SOUND = {
         this.audio.src  = this.audio.canPlayType('audio/mpeg;') 
                           ? 'music/'+track+'.mp3' : 'music/'+track+'.ogg';
 
-        this.audio.load();
+        this.audio.load(function(){
+            alert('loaded');
+        });
 
         this.events();      
     },
@@ -63,7 +65,7 @@ var SOUND = {
         this.audio.addEventListener('timeupdate', this.tickTock);
         this.audio.addEventListener('loadedmetadata', this.loadMeta);
         this.audio.addEventListener('ended', this.ended);               
-        this.audio.addEventListener('canplay', this.loaded);
+        this.audio.addEventListener('loadeddata', this.loaded);
     },
 
     firstTrack : function(){
@@ -126,7 +128,7 @@ var SOUND = {
        if (e.which === 32) {
 
             var self = SOUND,
-            
+
                 isPlaying = !self.audio.paused;
 
             if (isPlaying) {
@@ -184,13 +186,13 @@ var SOUND = {
     mouseDown : function(e) {
         var self = SOUND;
         self.audio.pause();
-        self.showState('play');
+        // self.showState('play');
     },
 
     mouseUp : function(e) {
         var self = SOUND;        
         self.audio.play();
-        self.showState('pause');
+        // self.showState('pause');
     },
 
     slide : function(e) {
@@ -254,11 +256,19 @@ var SOUND = {
     },
 
     loaded : function(e) {
-        var self = SOUND;
+
+        var self = SOUND,
+            secs = parseInt(self.audio.currentTime, 10);
+
+        if (secs == self.lastTime){
+            // return false;
+        }
+
         self.showState('pause');        
         self.progress.slider('option', 'max', self.duration);
         self.progress.slider('option', 'value', 0);
         self.audio.play();
+
     }
 }
 
