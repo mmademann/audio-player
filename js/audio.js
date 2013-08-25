@@ -214,8 +214,6 @@ var SOUND = {
         self.audio.load();
 
         self.play();
-
-        // self.audio.addEventListener('canplay', self.play);      
     },
 
     showState : function(state){
@@ -283,7 +281,7 @@ var SOUND = {
 
     loadedMeta : function() {
         SOUND.duration = this.duration;
-        alert('loadedmeta');
+        // alert('loadedmeta');
     },
 
     loadStart : function(){
@@ -301,14 +299,14 @@ var SOUND = {
         var self = SOUND,
             secs = parseInt(this.currentTime, 10);
 
-        alert('canPlayThrough');
+        // alert('canPlayThrough');
 
         if (secs == self.lastTime || 
            (self.inProg && !self.isMobile)) {
             return false;
         }
 
-        alert('canPlayThrough pass');
+        // alert('canPlayThrough pass');
 
         self.inProg = true;
 
