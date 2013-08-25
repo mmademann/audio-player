@@ -18,7 +18,6 @@ var SOUND = SOUND || {
 
         alert('init');
 
-
         this.progress.slider();  
 
         var track       = this.getFirstTrack();
