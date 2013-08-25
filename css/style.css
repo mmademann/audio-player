@@ -13,14 +13,7 @@ html, .gradient {
 
 }
 
-.gradient {border: 1px solid black;}
-
 #boss {
-/*	-webkit-transition: all .7s ease;
-	-moz-transition: all .7s ease;
-	-o-transition: all .7s ease;
-	-ms-transition: all .7s ease;
-	transition: all .7s ease;*/
 	
 	position: relative;
 	overflow: hidden;
@@ -66,7 +59,19 @@ html, .gradient {
 	height: 34px;
 	background-image: url(../images/sprite.png);
 	background-repeat: no-repeat;
-	margin-right: 20px;
+	margin-right: 10px;
+	margin-left: 10px;
+
+	-webkit-transition: all .4s ease;
+	-moz-transition: all .4s ease;
+	-o-transition: all .4s ease;
+	-ms-transition: all .4s ease;
+	transition: all .4s ease;
+}
+
+.button:hover {
+	opacity: 0.75;
+	filter:alpha(opacity=75);
 }
 
 #control.play {
@@ -175,12 +180,12 @@ html, .gradient {
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
-/*
+
 	-webkit-transition: all .4s ease;
 	-moz-transition: all .4s ease;
 	-o-transition: all .4s ease;
 	-ms-transition: all .4s ease;
-	transition: all .4s ease;	*/
+	transition: all .4s ease;	
 }
 
 #meta a.on {
