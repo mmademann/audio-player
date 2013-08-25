@@ -219,7 +219,7 @@ var SOUND = {
 
         var self = SOUND;
 
-        // self.nextTrack();
+        self.stop();
     },
 
     nextTrack : function(e){
