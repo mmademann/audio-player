@@ -292,11 +292,6 @@ var SOUND = {
         self.progress.slider('option', 'value', secs);        
     },
 
-    loadStart : function() {
-        var self = SOUND;
-        self.audio.load();
-    },
-
     loadMeta : function(e) {
 
         var self = SOUND;
