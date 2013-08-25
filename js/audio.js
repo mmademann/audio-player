@@ -67,6 +67,7 @@ var SOUND = SOUND || {
         this.audio.addEventListener('canplaythrough', this.canPlayThrough);
 
         this.audio.load();
+        
         this.mobileLoad();
     },
 
@@ -279,7 +280,6 @@ var SOUND = SOUND || {
 
     loadedMeta : function() {
         SOUND.duration = this.duration;
-        // alert('loadedmeta');
     },
 
     mobileLoad : function(){
@@ -303,9 +303,6 @@ var SOUND = SOUND || {
         }
 
         alert('canplay');
-
-
-        // alert('canPlayThrough pass');
 
         self.inProg = true;
 
