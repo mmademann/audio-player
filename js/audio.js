@@ -145,9 +145,14 @@ var SOUND = SOUND || {
         self.nextTrack();
     },
 
-    'toggleSpinner' : function() {
-        this.meta.find('.time').toggle();
-        this.spinner.toggle();
+    'showSpinner' : function() {
+        this.meta.find('.time').show();
+        this.spinner.show();
+    },
+
+    'hideSpinner' : function() {
+        this.meta.find('.time').hide();
+        this.spinner.show();
     },
 
     'resetSlider' : function() {
@@ -168,7 +173,7 @@ var SOUND = SOUND || {
             currSound = self.tracks.find('.on'),
             nextSound = $(this).is('.track') ? $(this) : currSound.next();
 
-        self.resetMeta();
+        self.showSpinner();
         self.resetSlider();
 
         if (!nextSound.length) {
@@ -190,7 +195,7 @@ var SOUND = SOUND || {
             currSound = self.tracks.find('.on'),
             prevSound = currSound.prev();
         
-        self.resetMeta();
+        self.showSpinner();
         self.resetSlider();        
 
         if (!prevSound.length) {
@@ -289,7 +294,7 @@ var SOUND = SOUND || {
 
         if (isMobile){
             self.resetSlider();
-            self.resetMeta();
+            self.hideSpinner();
         }
     },
 
@@ -305,7 +310,7 @@ var SOUND = SOUND || {
 
         self.showState('pause');
         self.resetSlider();
-        self.resetMeta();
+        self.hideSpinner();
         this.play();
 
         // Firefox fires canPlayThrough twice, so watch out
