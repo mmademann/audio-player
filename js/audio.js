@@ -6,19 +6,18 @@ if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigat
 var SOUND = {
 
     pageLoad    : true,
-    theboss     : $('#theboss'),
+    outer       : $('#outer'),
     progress    : $('#progress'),
     control     : $('#control'),
     volume      : $('#volume'),
     tracks      : $('#tracks'),
-    stop        : $('#stop'),
     meta        : $('#meta'),
 
     init : function(){
 
         this.progress.slider();  
 
-        var track       = this.firstTrack();
+        var track       = this.getFirstTrack();
         
         this.audio      = new Audio('music/'+track+'.ogg','music/'+track+'.mp3');
 
@@ -35,15 +34,14 @@ var SOUND = {
 
     events : function(){
 
-        this.theboss
+        this.outer
             .off('click')
             .on('click', '.play', this.play)
             .on('click', '.pause', this.pause)
-            .on('click', '.track', this.changeSong)
-            .on('click', '.prever', this.prevTrack)
-            .on('click', '.nexter', this.nextTrack)
-            .on('click', '#stop', this.stop)
-            .on('click', '#volume', this.volume);
+            .on('click', '.track', this.nextTrack)
+            .on('click', '.s-next', this.nextTrack)
+            .on('click', '.s-prev', this.prevTrack)
+            .on('click', '.volume', this.volume);
 
         $(window).keypress(this.spacebar);
 
@@ -65,38 +63,9 @@ var SOUND = {
         }
 
         this.audio.addEventListener('timeupdate', this.tickTock);
-        this.audio.addEventListener('loadedmetadata', this.loadMeta);
-        this.audio.addEventListener('loadeddata', this.loaded);
+        this.audio.addEventListener('loadedmetadata', this.loadedMeta);
+        this.audio.addEventListener('canplaythrough', this.loadedData);
         this.audio.addEventListener('ended', this.ended);               
-    },
-
-    firstTrack : function(){
-
-        var name = this.tracks
-                        .find('a')
-                        .eq(0)
-                        .addClass('on')
-                        .data('name');
-
-        return name;
-    },    
-
-    changeSong : function(e){
-        try{e.preventDefault()}catch(e){}
-
-        var self = SOUND;
-
-        self.clearActives();
-
-        var name  = $(this).addClass('on').data('name');
-
-        self.setSource(name);
-    },
-
-    clearActives : function(e){
-        this.tracks
-            .find('a.track')
-            .removeClass('on');        
     },
 
     setSource : function(name){
@@ -108,6 +77,21 @@ var SOUND = {
         
         self.audio.load();
     },
+
+    getFirstTrack : function(){
+
+        var name = this.tracks
+                        .find('a')
+                        .eq(0)
+                        .addClass('on')
+                        .data('name');
+
+        return name;
+    },
+
+    clearActives : function(){
+        this.tracks.find('a').removeClass('on');        
+    },    
 
     showState : function(state){
 
@@ -182,7 +166,7 @@ var SOUND = {
         $(this).toggleClass('mute');        
     },
 
-    mouseDown : function(e) {
+    mouseDown : function() {
 
         var self = SOUND;
 
@@ -190,7 +174,7 @@ var SOUND = {
         self.showState('play');
     },
 
-    mouseUp : function(e) {
+    mouseUp : function() {
 
         var self = SOUND;
 
@@ -220,8 +204,13 @@ var SOUND = {
 
         var self = SOUND,
 
-            currSound = self.tracks.find('.on').removeClass('on'),
-            nextSound = currSound.next();
+            currSound = self.tracks.find('.on'),
+
+            nextSound = $(this).is('.track') ? $(this) : currSound.next();
+
+        self.clearActives();
+
+        // self.stop();
 
         if (!nextSound.length) {
             nextSound = self.tracks.find('a.track').eq(0);
@@ -278,7 +267,7 @@ var SOUND = {
         this.meta.find('.time').text(minutes+':'+seconds);        
     },
 
-    tickTock : function(e) {
+    tickTock : function() {
         var self = SOUND,
             secs = parseInt(self.audio.currentTime, 10);
 
@@ -290,14 +279,14 @@ var SOUND = {
         self.progress.slider('option', 'value', secs);        
     },
 
-    loadMeta : function(e) {
+    loadedMeta : function() {
 
         var self = SOUND;
 
         self.duration = this.duration;
     },
 
-    loaded : function(e) {
+    loadedData : function() {
 
         var self = SOUND,
             secs = parseInt(self.audio.currentTime, 10);
@@ -306,11 +295,13 @@ var SOUND = {
             // return false;
         }
         
-        // self.setTrackName();
+        self.setTrackName();
         self.showState('pause');        
         self.progress.slider('option', 'max', self.duration);
         self.progress.slider('option', 'value', 0);
         self.audio.play();
+
+        self.tracks.find('.on').show();
     }
 }
 
