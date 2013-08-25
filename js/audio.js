@@ -17,7 +17,7 @@ var SOUND = {
 
         this.progress.slider();  
 
-        var track       = this.GetFirstTrack();
+        var track       = this.getFirstTrack();
         
         this.audio      = new Audio('music/'+track+'.ogg','music/'+track+'.mp3');
 
@@ -32,29 +32,27 @@ var SOUND = {
         this.events();      
     },
 
-    GetFirstTrack : function(){
+    getFirstTrack : function(){
 
-        var firstTrack  = this.meta
-                            .find('a').eq(0)
-                            .addClass('on'),
-
-            trackName   = firstTrack.data('name');
+        var trackName   = this.meta
+                            .find('a.track')
+                            .eq(0)
+                            .addClass('on')
+                            .data('name');
 
         return trackName;
     },
 
     events : function(){
 
-        var self    = SOUND;
+        this.boss
+            .on('click', '.play', this.play)
+            .on('click', '.pause', this.pause)
+            .on('click', '.track', this.changeSong)
+            .on('click', '#stop', this.stop)
+            .on('click', '#volume', this.volume);
 
-        if (isMobile) {
-
-            this.boss
-                .on('touch', '.play', this.play)
-                .on('touch', '.pause', this.pause)
-                .on('touch', '.track', this.change)
-                .on('touch', '.stop', this.stop)
-                .on('touch', '.volume', this.volume);            
+        if (isMobile) {          
 
             this.progress
                 .on('touchmove', this.slide)
@@ -62,14 +60,7 @@ var SOUND = {
                 .on('touchend', this.mouseUp)
                 .on('touchstart', 'a', this.mouseDown);
 
-        } else {
-
-            this.boss
-                .on('click', '.play', this.play)
-                .on('click', '.pause', this.pause)
-                .on('click', '.track', this.change)
-                .on('click', '.stop', this.stop)
-                .on('click', '.volume', this.volume);            
+        } else {           
 
             this.progress
                 .on('slide', this.slide)
@@ -81,26 +72,31 @@ var SOUND = {
         this.audio.addEventListener('timeupdate', this.tickTock);
         this.audio.addEventListener('loadedmetadata', this.loadMeta);
         this.audio.addEventListener('ended', this.ended);               
-        this.audio.addEventListener('loadeddata', this.loaded);
+        this.audio.addEventListener('canplay', this.loaded);
     },
 
-    change : function(e){
+    changeSong : function(e){
         try{e.preventDefault()}catch(e){}
+
+        var self = SOUND;
+
+        self.unsetActives();
+
+        var name = $(this).addClass('on').data('name');
+
+        self.setSource(name);
+    },
+
+    unsetActives : function(e){
 
         var self = SOUND;
 
         self.meta
             .find('a.track')
-            .removeClass('on');
-
-        $(this).addClass('on');
-
-        var name = $(this).data('name');
-
-        self.track(name);
+            .removeClass('on');        
     },
 
-    track : function(name){
+    setSource : function(name){
 
         var self = SOUND;        
 
@@ -155,8 +151,6 @@ var SOUND = {
     volume : function(e){
         try{e.preventDefault()}catch(e){}
 
-        alert($(this).is('.mute'));
-
         var self = SOUND;
 
         if ($(this).is('.mute')) {
@@ -192,16 +186,18 @@ var SOUND = {
     },
 
     ended : function(e) {
+
         var self        = SOUND,
+
             currSound   = self.meta.find('.on').removeClass('on'),
             nextSound   = currSound.next();
 
         if (!nextSound.length) {
-            nextSound = self.meta.find('a').eq(0);
+            nextSound = self.meta.find('a.track').eq(0);
         }
         var name = nextSound.addClass('on').data('name');
 
-        self.track(name);
+        self.setSource(name);
     },    
 
     getCurrentTime : function(value){

@@ -1,11 +1,4 @@
-html {background-image: url(../images/bg.gif);}
-/*html {background: url(../images/bt.jpg) center top;}*/
-
-body, html {height: 100%}
-
-
-.gradient {
-	border: 1px solid black;
+html, .gradient {
 
 	-webkit-box-shadow: inset 0 1px 0px rgba(255,255,255,.2);
 	-moz-box-shadow: inset 0 1px 0px rgba(255,255,255,.2);
@@ -20,6 +13,8 @@ body, html {height: 100%}
 
 }
 
+.gradient {border: 1px solid black;}
+
 #boss {
 	-webkit-transition: all .7s ease;
 	-moz-transition: all .7s ease;
@@ -33,10 +28,6 @@ body, html {height: 100%}
 	height: 100%;
 	padding: 20px;
 	margin:0px auto;
-/*
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;*/
 
 	-webkit-box-shadow: 0px 0px 13px rgba(0,0,0,.3),inset 0 1px 0px rgba(255,255,255,.2);
 	-moz-box-shadow: 0px 0px 13px rgba(0,0,0,.3),inset 0 1px 0px rgba(255,255,255,.2);
@@ -58,7 +49,6 @@ body, html {height: 100%}
 	margin: 0 auto;
 	display: block;
 	overflow: hidden;
-
 
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
@@ -96,7 +86,7 @@ body, html {height: 100%}
 	display: block;
 }
 
-/*.volume {
+.volume {
 	position: absolute;
 	height: 100px;
 	width: 34px;
@@ -104,7 +94,7 @@ body, html {height: 100%}
 	background-color: #242323;
 	top: -97px;
 	display: none;
-}*/
+}
 
 #progress {
 	-webkit-appearance: none;
@@ -203,12 +193,10 @@ body, html {height: 100%}
 	transition: all .4s ease;	
 }
 
-#meta a:hover, #meta a.on {background:#444;}
+#meta a.on {background:#444;}
 
-#meta a span {display:none;margin-left:15px;background:url(http://fatsoma.s3.amazonaws.com/v/65/graphics/icons/small-transparent-loading.gif);width:32px;height:32px;}
 
 /* redesign */
-#boss {overflow: auto;}
 .player {margin-top:10px;}
 #progress {margin:30px auto 40px;float:none;width:30%;}
 #stop {display: inline-block;}
@@ -219,24 +207,31 @@ body, html {height: 100%}
 #time span {right:0;left:auto;top:-35px;}
 
 
-/** smartphone (landscape)**/
+/** smartphone (landscape) **/
 @media only screen and (min-width : 321px) and (max-width : 480px) {
 	
 }
 
-/** smartphone (portrait)**/
+/** smartphone (portrait) **/
 @media only screen and (max-width : 320px) {
 
 }
 
-/** smartphone (portrait and landscape)**/
+/** smartphone (portrait and landscape) **/
 @media only screen and (min-width : 320px) and (max-width : 480px) {
 
-	#progress {
-		width:80%;
-	}
+	#progress {width:80%;}
+	#time {width:80%;}	
 
-	#time {width:80%;}
+}
+
+/** greater than 481 width **/
+@media only screen and (min-width : 481px) {
+	
+	body, html {height: 100%}
+
+	#meta a:hover {background:#444;
+
 }
 
 
