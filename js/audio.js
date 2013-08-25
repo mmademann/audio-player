@@ -30,19 +30,20 @@ var SOUND = {
 
         // this.audio.load();
 
-        this.events();
+        this.addEvents();
     },
 
-    events : function(){
+    addEvents : function(){
 
         this.theboss
             .on('click', '.play', this.play)
             .on('click', '.pause', this.pause)
             .on('click', '.track', this.changeSong)
-            .on('click', '.next', this.nextTrack)
-            .on('click', '.prev', this.prevTrack)
+            // .on('click', '.prev', this.prevTrack)
             .on('click', '#stop', this.stop)
             .on('click', '#volume', this.volume);
+
+        $('#buttons').on('click', '.next', this.nextTrack);
 
         $(window).keypress(this.spacebar);
 
@@ -220,8 +221,7 @@ var SOUND = {
         var self = SOUND,
 
             currSound = self.meta.find('.on').removeClass('on'),
-            currIndex = currSound.index(),
-            nextSound = self.meta.find('a').eq(currIndex+1);
+            nextSound = currSound.next();
 
         if (!nextSound.length) {
             nextSound = self.meta.find('a.track').eq(0);
@@ -231,7 +231,7 @@ var SOUND = {
 
         var name = nextSound.data('name');
 
-        alert('new2');
+        alert('new3');
         alert(name);
 
         self.setSource(name);
