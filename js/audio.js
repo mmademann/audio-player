@@ -299,14 +299,14 @@ var SOUND = SOUND || {
         var self = SOUND,
             secs = parseInt(this.currentTime, 10);
 
-        alert('at least here');
+        alert('top');
 
         if (secs == self.lastTime || 
            self.inProg) {
             return false;
         }
 
-        alert('canplay');
+        alert('in');
 
         self.inProg = true;
 
