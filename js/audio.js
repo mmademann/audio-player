@@ -180,16 +180,19 @@ var SOUND = {
     },
 
     toggleSpinner : function() {
-        this.meta.find('.time').hide();
+        this.meta.find('.time').toggle();
         this.spinner.toggle();
     },
 
-    resetProgress : function() {
-        this.toggleSpinner();
-        this.setTrackName();
+    resetSlider : function() {
         this.progress.slider('option', 'max', self.duration);        
         this.progress.slider('option', 'value', 0);
         this.setCurrentTime(0);          
+    }, 
+
+    resetMeta : function() {
+        this.toggleSpinner();
+        this.setTrackName();      
     },    
 
     nextTrack : function(e){
@@ -199,13 +202,13 @@ var SOUND = {
             currSound = self.tracks.find('.on').removeClass('on'),
             nextSound = $(this).is('.track') ? $(this) : currSound.next();
 
-        self.resetProgress();
-
         if (!nextSound.length) {
             nextSound = self.tracks.find('a.track').eq(0);
         }
 
         nextSound.addClass('on');
+
+        self.resetMeta();
 
         var name = nextSound.data('name');
 
@@ -218,14 +221,14 @@ var SOUND = {
         var self = SOUND,
             currSound = self.tracks.find('.on').removeClass('on'),
             prevSound = currSound.prev();
-
-        self.resetProgress();            
         
         if (!prevSound.length) {
             prevSound = self.tracks.find('a:last-child');
         }
 
         prevSound.addClass('on');
+
+        self.resetMeta();            
 
         var name = prevSound.data('name');
 
@@ -275,17 +278,20 @@ var SOUND = {
         var self = SOUND,
             secs = parseInt(self.audio.currentTime, 10);
 
-        if (secs == self.lastTime || (self.inProg && !self.isMobile){
+        if (secs == self.lastTime || (self.inProg && !self.isMobile)) {
             return false;
         }
 
         self.inProg = true;
 
         self.showState('pause');
-        self.progress.slider('option', 'max', self.duration);        
-        self.progress.slider('option', 'value', 0);
-        self.meta.find('.time').show();        
-        self.spinner.hide();
+        // self.progress.slider('option', 'max', self.duration);
+        // self.progress.slider('option', 'value', 0);
+        // self.meta.find('.time').show();
+        // self.spinner.hide();
+
+        self.resetSlider();
+        self.resetMeta();
         self.audio.play();
 
         if (!self.isMobile){

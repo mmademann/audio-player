@@ -172,11 +172,16 @@ body a {text-decoration: none;}
 	transition: all .4s ease;	
 }
 
+#meta .time {
+	display: none;
+}
+
 #meta .name {
 	right:auto;left:15px;top:-50px;
 }
 
 #spinner {
+	display: block;
 	height:8px;
 	width:8px;
 	margin:auto;
