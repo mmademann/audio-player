@@ -63,7 +63,7 @@ var SOUND = {
                 .on('mousedown', 'a', this.mouseDown);
         }
 
-        this.audio.addEventListener('canplay', this.loadedData);
+        this.audio.addEventListener('canplay', this.canPlay);
         this.audio.addEventListener('timeupdate', this.timeUpdate);
         this.audio.addEventListener('loadedmetadata', this.loadedMeta);
         this.audio.addEventListener('ended', this.ended);               
@@ -186,6 +186,7 @@ var SOUND = {
     resetProgress : function() {
         this.toggleSpinner();
         this.setTrackName();
+        this.progress.slider('option', 'max', self.duration);
         this.progress.slider('option', 'value', 0);
         this.setCurrentTime(0);          
     },    
@@ -269,7 +270,7 @@ var SOUND = {
         SOUND.duration = this.duration;
     },
 
-    loadedData : function() {
+    canPlay : function() {
         var self = SOUND,
             secs = parseInt(self.audio.currentTime, 10);
 
@@ -279,8 +280,7 @@ var SOUND = {
 
         self.inProg = true;
 
-        self.showState('pause');          
-        self.progress.slider('option', 'max', self.duration);
+        self.showState('pause');
         self.resetProgress();      
         self.audio.play();
 
