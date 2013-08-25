@@ -33,17 +33,17 @@ html, .gradient {
 	-moz-box-shadow: 0px 0px 13px rgba(0,0,0,.3),inset 0 1px 0px rgba(255,255,255,.2);
 	box-shadow: 0px 0px 13px rgba(0,0,0,.3),inset 0 1px 0px rgba(255,255,255,.2);
 
-	-webkit-box-sizing: border-box;
+/*	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
-	box-sizing: border-box;
+	box-sizing: border-box;*/
 }
 
 .player {
-	-webkit-box-sizing: border-box;
+/*	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
-	box-sizing: border-box;
+	box-sizing: border-box;*/
 	
 	width: 100%;
 	margin: 0 auto;
@@ -97,8 +97,8 @@ html, .gradient {
 }
 
 #progress {
-	-webkit-appearance: none;
-	-moz-appearance: none;
+/*	-webkit-appearance: none;
+	-moz-appearance: none;*/
 	
 	border: 1px solid black;
 	display: block;
