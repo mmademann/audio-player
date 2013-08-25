@@ -34,7 +34,7 @@ var SOUND = SOUND || {
     events : function(){
 
         alert('events');
-        
+
         this.outer
             .off('click')
             .on('click', '.play', this.play)
@@ -320,6 +320,8 @@ var SOUND = SOUND || {
     }
 }
 
+SOUND.init();
+
 $(document).ready(function() {
-    SOUND.init();
+    
 });
