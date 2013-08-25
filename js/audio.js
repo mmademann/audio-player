@@ -233,7 +233,9 @@ var SOUND = {
             nextSound = self.meta.find('a.track').eq(0);
         }
 
-        var name = nextSound.addClass('on').data('name');
+        nextSound.addClass('on');
+
+        var name = nextSound.data('name');
 
         self.setSource(name);
     },
@@ -250,7 +252,9 @@ var SOUND = {
             prevSound = self.meta.find('a.track:last-child');
         }
 
-        var name = prevSound.addClass('on').data('name');
+        prevSound.addClass('on');
+
+        var name = prevSound.data('name');
 
         self.setSource(name);
     },    
