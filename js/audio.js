@@ -40,9 +40,11 @@ var SOUND = {
             .on('click', '.pause', this.pause)
             .on('click', '.track', this.changeSong)
             .on('click', '.prev', this.prevTrack)
-            .on('click', '.next', this.nextTrack)
+            // .on('click', '.next', this.nextTrack)
             .on('click', '#stop', this.stop)
             .on('click', '#volume', this.volume);
+
+            $('.next').off('click').on('click', this.nextTrack);
 
         $(window).keypress(this.spacebar);
 
@@ -230,7 +232,7 @@ var SOUND = {
 
         var name = nextSound.data('name');
 
-        alert('no touch: '+name);
+        alert('off click: '+name);
 
         self.setSource(name);
     },
