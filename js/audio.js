@@ -186,7 +186,7 @@ var SOUND = {
     resetProgress : function() {
         this.toggleSpinner();
         this.setTrackName();
-        self.progress.slider('option', 'max', self.duration);        
+        this.progress.slider('option', 'max', self.duration);        
         this.progress.slider('option', 'value', 0);
         this.setCurrentTime(0);          
     },    
@@ -281,7 +281,7 @@ var SOUND = {
         self.inProg = true;
 
         self.showState('pause');
-        self.resetProgress        
+        self.resetProgress();
         self.audio.play();
 
         if (!self.isMobile){
