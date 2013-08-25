@@ -37,6 +37,7 @@ var SOUND = {
         var firstTrack  = this.meta
                             .find('a').eq(0)
                             .addClass('on'),
+
             trackName   = firstTrack.data('name');
 
         return trackName;
@@ -51,7 +52,7 @@ var SOUND = {
             this.boss
                 .on('touchstart', '.play', this.play)
                 .on('touchstart', '.pause', this.pause)
-                .on('touchstart', '.track', this.track)
+                .on('touchstart', '.track', this.change)
                 .on('touchstart', '#stop', this.stop)   
                 .on('touchstart', '#volume', this.volume);
 
@@ -60,13 +61,13 @@ var SOUND = {
                 .on('touchend', this.slide)
                 .on('touchend', this.mouseUp)
                 .on('touchstart', 'a', this.mouseDown);
-                
+
         } else {
 
             this.boss
                 .on('click', '.play', this.play)
                 .on('click', '.pause', this.pause)
-                .on('click', '.track', this.track)
+                .on('click', '.track', this.change)
                 .on('click', '#stop', this.stop)   
                 .on('click', '#volume', this.volume);
 
@@ -83,15 +84,18 @@ var SOUND = {
         this.audio.addEventListener('loadeddata', this.loaded);
     },
 
-    track : function(e){
+    change : function(e){
         try{e.preventDefault()}catch(e){}
 
-        var self = SOUND,
-            name = $(this).data('name');
+        var self = SOUND;
 
-        self.meta.find('a.track').removeClass('on');
+        self.meta
+            .find('a.track')
+            .removeClass('on');
 
         $(this).addClass('on');
+
+        var name = $(this).data('name');
         
         self.audio.src  = self.audio.canPlayType('audio/mpeg;') 
                           ? 'music/'+name+'.mp3' : 'music/'+name+'.ogg';

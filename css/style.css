@@ -205,6 +205,7 @@ body, html {height: 100%}
 
 #meta a:hover, #meta a.on {background:#444;}
 
+#meta a span {display:none;margin-left:15px;background:url(http://fatsoma.s3.amazonaws.com/v/65/graphics/icons/small-transparent-loading.gif);width:32px;height:32px;}
 
 /* redesign */
 #boss {overflow: auto;}
