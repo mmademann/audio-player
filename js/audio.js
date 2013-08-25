@@ -66,6 +66,7 @@ var SOUND = {
         this.audio.addEventListener('ended', this.ended);               
         this.audio.addEventListener('timeupdate', this.timeUpdate);
         this.audio.addEventListener('loadedmetadata', this.loadedMeta);
+        this.audio.addEventListener('loadstart', this.loadStart);
         this.audio.addEventListener('canplaythrough', this.canPlayThrough);
     },    
 
@@ -280,15 +281,25 @@ var SOUND = {
         SOUND.duration = this.duration;
     },
 
+    loadStart : function(){
+        var self = SOUND;
+        
+        if (self.isMobile){
+            alert('loadstart');
+            self.resetSlider();
+            self.resetMeta();
+        }
+    },
+
     canPlayThrough : function() {
         var self = SOUND,
             secs = parseInt(this.currentTime, 10);
-        alert('here');
+
         if (secs == self.lastTime || 
            (self.inProg && !self.isMobile)) {
             return false;
         }
-        alert('here passed');
+
         self.inProg = true;
 
         self.showState('pause');
