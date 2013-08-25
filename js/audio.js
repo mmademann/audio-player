@@ -295,6 +295,7 @@ var SOUND = SOUND || {
         if (isMobile){
             self.resetSlider();
             self.hideSpinner();
+            self.setTrackName();            
         }
     },
 
