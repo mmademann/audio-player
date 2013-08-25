@@ -3,7 +3,7 @@ if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigat
     isMobile = true;
 }
 
-var SOUND = {
+var SOUND = SOUND || {
 
     inProg      : false,
     outer       : $('#outer'),
@@ -286,7 +286,6 @@ var SOUND = {
         var self = SOUND;
 
         if (isMobile){
-            alert('isMobile: '+ isMobile);
             self.resetSlider();
             self.resetMeta();
         }
