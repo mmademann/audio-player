@@ -286,6 +286,7 @@ var SOUND = SOUND || {
         var self = SOUND;
 
         if (isMobile){
+            alert('im mobile');
             self.resetSlider();
             self.resetMeta();
         }
@@ -295,7 +296,7 @@ var SOUND = SOUND || {
         var self = SOUND,
             secs = parseInt(this.currentTime, 10);
 
-        alert('at least');
+        alert('at least here');
 
         if (secs == self.lastTime || 
            self.inProg) {
