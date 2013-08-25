@@ -230,6 +230,8 @@ var SOUND = {
 
         var name = nextSound.data('name');
 
+        alert(name);
+
         self.setSource(name);
     },
 
