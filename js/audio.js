@@ -35,16 +35,14 @@ var SOUND = {
 
     events : function(){
 
-        var eventType = isMobile ? 'touchstart' : 'click';
-
         this.theboss
-            .on(eventType, '.play', this.play)
-            .on(eventType, '.pause', this.pause)
-            .on(eventType, '.track', this.changeSong)
-            .on(eventType, '.prev', this.prevTrack)
-            .on(eventType, '.next', this.nextTrack)
-            .on(eventType, '#stop', this.stop)
-            .on(eventType, '#volume', this.volume);
+            .on('click', '.play', this.play)
+            .on('click', '.pause', this.pause)
+            .on('click', '.track', this.changeSong)
+            .on('click', '.prev', this.prevTrack)
+            .on('click', '.next', this.nextTrack)
+            .on('click', '#stop', this.stop)
+            .on('click', '#volume', this.volume);
 
         $(window).keypress(this.spacebar);
 
@@ -232,7 +230,7 @@ var SOUND = {
 
         var name = nextSound.data('name');
 
-        alert('eventTypes: '+name);
+        alert('no touch: '+name);
 
         self.setSource(name);
     },
