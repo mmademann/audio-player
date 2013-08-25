@@ -45,8 +45,9 @@ var SOUND = {
 
     events : function(){
 
-        var self   = SOUND,
-            events = isMobile ? 
+        var self    = SOUND;
+
+        var events = isMobile ? 
                     'touchstart' : 
                     'click';
 
@@ -56,7 +57,6 @@ var SOUND = {
             .on(events, '.track', this.change)
             .on(events, '#stop', this.stop)   
             .on(events, '#volume', this.volume);
-
 
         if (isMobile) {
 
@@ -93,7 +93,14 @@ var SOUND = {
         $(this).addClass('on');
 
         var name = $(this).data('name');
-        
+
+        self.track(name);
+    },
+
+    track : function(name){
+
+        var self = SOUND;        
+
         self.audio.src  = self.audio.canPlayType('audio/mpeg;') 
                           ? 'music/'+name+'.mp3' : 'music/'+name+'.ogg';
         
@@ -144,6 +151,8 @@ var SOUND = {
 
     volume : function(e){
         try{e.preventDefault()}catch(e){}            
+        console.log($(this));
+        console.log($(this).is('.mute'));
 
         var self = SOUND;
 
@@ -181,14 +190,15 @@ var SOUND = {
 
     ended : function(e) {
         var self        = SOUND,
-            currSound   = self.meta.find('.on'),
+            currSound   = self.meta.find('.on').removeClass('on'),
             nextSound   = currSound.next();
 
         if (!nextSound.length) {
             nextSound = self.meta.find('a').eq(0);
         }
+        var name = nextSound.addClass('on').data('name');
 
-        nextSound.click();
+        self.track(name);
     },    
 
     getCurrentTime : function(value){
