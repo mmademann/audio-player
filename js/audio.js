@@ -3,10 +3,6 @@ if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigat
     isMobile = true;
 }
 
-if(/Firefox/i.test(navigator.userAgent)) {
-
-}
-
 var SOUND = {
 
     pageLoad    : true,
@@ -68,7 +64,7 @@ var SOUND = {
 
         this.audio.addEventListener('timeupdate', this.tickTock);
         this.audio.addEventListener('loadedmetadata', this.loadedMeta);
-        this.audio.addEventListener('loadeddata', this.loadedData);
+        this.audio.addEventListener('canplay', this.loadedData);
         this.audio.addEventListener('ended', this.ended);               
     },
 
