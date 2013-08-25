@@ -16,10 +16,12 @@ var SOUND = SOUND || {
 
     'init' : function(){
 
-        this.progress.slider();  
+        // initialize the slider
+        this.progress.slider();
 
         var track       = this.getFirstTrack();
         
+        // create the audio element
         this.audio      = new Audio('music/'+track+'.ogg','music/'+track+'.mp3');
 
         this.audio.type = this.audio.canPlayType('audio/mpeg;') 
@@ -28,13 +30,13 @@ var SOUND = SOUND || {
         this.audio.src  = this.audio.canPlayType('audio/mpeg;') 
                           ? 'music/'+track+'.mp3' : 'music/'+track+'.ogg';
 
+        // bind events
         this.events();
     },
 
     'events' : function(){
 
-        // alert('gott it');
-
+        // click events for player controls
         this.outer
             .off('click')
             .on('click', '.play', this.play)
@@ -44,8 +46,10 @@ var SOUND = SOUND || {
             .on('click', '.s-prev', this.prevTrack)
             .on('click', '.volume', this.volume);
 
+        // spacebar plays & pauses
         $(window).keypress(this.spacebar);
 
+        // different slider events for mobile
         if (isMobile) {          
 
             this.progress
@@ -63,13 +67,17 @@ var SOUND = SOUND || {
                 .on('mousedown', 'a', this.scrubDown);
         }
 
+        // add listeners to the audio
         this.audio.addEventListener('ended', this.ended);               
         this.audio.addEventListener('timeupdate', this.timeUpdate);
         this.audio.addEventListener('loadedmetadata', this.loadedMeta);
         this.audio.addEventListener('canplaythrough', this.canPlayThrough);
 
+        // load the audio
         this.audio.load();
         
+        // mobile safari doesn't fire canplaythrough
+        // unless the user physically interacts with the audio
         this.mobileLoad();
     },
 
@@ -290,12 +298,11 @@ var SOUND = SOUND || {
     },
 
     'mobileLoad' : function(){
-        var self = SOUND;
 
         if (isMobile){
-            self.resetSlider();
-            self.hideSpinner();
-            self.setTrackName();            
+            // this.resetSlider();
+            // this.hideSpinner();
+            // this.setTrackName();            
         }
     },
 
@@ -307,6 +314,8 @@ var SOUND = SOUND || {
             return false;
         }
 
+        alert('test'); 
+        
         self.inProg = true;
 
         self.showState('pause');
