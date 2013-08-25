@@ -16,7 +16,7 @@ var SOUND = SOUND || {
 
     'init' : function(){
 
-        alert('inits');
+        // alert('inits');
 
         this.progress.slider();  
 
