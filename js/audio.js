@@ -297,8 +297,7 @@ var SOUND = SOUND || {
         var self = SOUND,
             secs = parseInt(this.currentTime, 10);
 
-        if (secs == self.lastTime || 
-           self.inProg) {
+        if (secs == self.lastTime || self.inProg) {
             return false;
         }
 
