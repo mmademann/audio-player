@@ -28,7 +28,7 @@ var SOUND = {
         this.audio.src  = this.audio.canPlayType('audio/mpeg;') 
                           ? 'music/'+track+'.mp3' : 'music/'+track+'.ogg';
 
-        this.audio.load();
+        // this.audio.load();
 
         this.events();
     },
@@ -68,6 +68,8 @@ var SOUND = {
         this.audio.addEventListener('loadedmetadata', this.loadedMeta);
         this.audio.addEventListener('loadstart', this.loadStart);
         this.audio.addEventListener('canplaythrough', this.canPlayThrough);
+
+        this.audio.load();
     },    
 
     play : function(e){
@@ -211,6 +213,8 @@ var SOUND = {
         
         self.audio.load();
 
+        self.play();
+
         // self.audio.addEventListener('canplay', self.play);      
     },
 
@@ -306,10 +310,10 @@ var SOUND = {
 
         self.inProg = true;
 
-        self.showState('pause');
+        // self.showState('pause');
         self.resetSlider();
         self.resetMeta();
-        this.play();
+        // this.play();
 
         if (!self.isMobile){
             setTimeout(function(){self.inProg = false}, 100);
