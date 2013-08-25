@@ -309,6 +309,7 @@ var SOUND = SOUND || {
         self.inProg = true;
 
         self.showState('pause');
+        self.setTrackName();
         self.resetSlider();
         self.hideSpinner();
         this.play();
