@@ -291,6 +291,7 @@ var SOUND = SOUND || {
             // alert('im mobile');
             self.resetSlider();
             self.resetMeta();
+            self.play();
         }
     },
 
@@ -309,10 +310,10 @@ var SOUND = SOUND || {
 
         self.inProg = true;
 
-        // self.showState('pause');
+        self.showState('pause');
         self.resetSlider();
         self.resetMeta();
-        // this.play();
+        this.play();
 
         // if (!isMobile){
             setTimeout(function(){self.inProg = false}, 300);
