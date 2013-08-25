@@ -271,6 +271,7 @@ body a {text-decoration: none;}
 @keyframes rotation {
     from {transform: rotate(0deg);}
     to {transform: rotate(359deg);}
+}
 
 /** smartphone (landscape) **/
 @media only screen and (min-width : 321px) and (max-width : 480px) {
