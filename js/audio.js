@@ -39,9 +39,9 @@ var SOUND = {
             .on('click', '.play', this.play)
             .on('click', '.pause', this.pause)
             .on('click', '.track', this.changeSong)
+            .on('click', '.next', this.nextTrack)
+            .on('click', '.prev', this.prevTrack)
             .on('click', '#stop', this.stop)
-            .on('click', '#next', this.nextTrack)
-            .on('click', '#prev', this.prevTrack)
             .on('click', '#volume', this.volume);
 
         $(window).keypress(this.spacebar);
@@ -210,8 +210,6 @@ var SOUND = {
     ended : function() {
 
         var self = SOUND;
-
-        alert('ended');
 
         self.nextTrack();
     },

@@ -112,11 +112,11 @@ body a {text-decoration: none;}
 	left:-50px;*/
 }
 
-#prev {
+.prev {
 	background-position: -525px -12px;
 }
 
-#next {
+.next {
 	background-position: -444px -12px;
 	left:auto;right:-50px;
 }
