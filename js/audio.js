@@ -64,7 +64,6 @@ var SOUND = {
         this.audio.addEventListener('ended', this.ended);               
         this.audio.addEventListener('timeupdate', this.timeUpdate);
         this.audio.addEventListener('loadedmetadata', this.loadedMeta);
-        this.audio.addEventListener('loadstart', this.loadStart);
         this.audio.addEventListener('canplaythrough', this.canPlayThrough);
 
         this.audio.load();
