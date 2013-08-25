@@ -233,7 +233,7 @@ var SOUND = {
 
         var name = nextSound.data('name');
 
-        alert('off click: '+name);
+        alert('off boss: '+name);
 
         self.setSource(name);
     },
