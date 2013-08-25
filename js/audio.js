@@ -10,9 +10,9 @@ var SOUND = {
     progress    : $('#progress'),
     control     : $('#control'),
     volume      : $('#volume'),
+    tracks      : $('#tracks'),
     stop        : $('#stop'),
     meta        : $('#meta'),
-    time        : $('#time'),
 
     init : function(){
 
@@ -30,20 +30,21 @@ var SOUND = {
 
         // this.audio.load();
 
-        this.addEvents();
+        this.events();
     },
 
-    addEvents : function(){
+    events : function(){
+
+        var eventType = isMobile ? 'touchstart' : 'click';
 
         this.theboss
-            .on('click', '.play', this.play)
-            .on('click', '.pause', this.pause)
-            .on('click', '.track', this.changeSong)
-            // .on('click', '.prev', this.prevTrack)
-            .on('click', '#stop', this.stop)
-            .on('click', '#volume', this.volume);
-
-        $('#buttons').on('click', '.next', this.nextTrack);
+            .on(eventType, '.play', this.play)
+            .on(eventType, '.pause', this.pause)
+            .on(eventType, '.track', this.changeSong)
+            .on(eventType, '.prev', this.prevTrack)
+            .on(eventType, '.next', this.nextTrack)
+            .on(eventType, '#stop', this.stop)
+            .on(eventType, '#volume', this.volume);
 
         $(window).keypress(this.spacebar);
 
@@ -72,7 +73,7 @@ var SOUND = {
 
     firstTrack : function(){
 
-        var name = this.meta
+        var name = this.tracks
                         .find('a')
                         .eq(0)
                         .addClass('on')
@@ -88,15 +89,13 @@ var SOUND = {
 
         self.clearActives();
 
-        var name = $(this).addClass('on').data('name');
-
-        alert('name: '+name);
+        var name  = $(this).addClass('on').data('name');
 
         self.setSource(name);
     },
 
     clearActives : function(e){
-        this.meta
+        this.tracks
             .find('a.track')
             .removeClass('on');        
     },
@@ -167,7 +166,7 @@ var SOUND = {
         self.audio.pause();
         self.audio.currentTime = 0;
         self.progress.slider('option', 'value', 0);
-        self.getCurrentTime(0);  
+        self.setCurrentTime(0);  
     },
 
     volume : function(e){
@@ -205,7 +204,7 @@ var SOUND = {
         var self  = SOUND,
             value = self.progress.slider('option', 'value');
 
-        self.getCurrentTime(value);
+        self.setCurrentTime(value);
         self.lastTime = value;
         self.audio.currentTime = value;
     },
@@ -222,18 +221,18 @@ var SOUND = {
 
         var self = SOUND,
 
-            currSound = self.meta.find('.on').removeClass('on'),
+            currSound = self.tracks.find('.on').removeClass('on'),
             nextSound = currSound.next();
 
         if (!nextSound.length) {
-            nextSound = self.meta.find('a.track').eq(0);
+            nextSound = self.tracks.find('a.track').eq(0);
         }
 
         nextSound.addClass('on');
 
         var name = nextSound.data('name');
 
-        alert('new3: '+name);
+        alert('eventTypes: '+name);
 
         self.setSource(name);
     },
@@ -243,11 +242,11 @@ var SOUND = {
 
         var self = SOUND,
 
-            currSound = self.meta.find('.on').removeClass('on'),
+            currSound = self.tracks.find('.on').removeClass('on'),
             prevSound = currSound.prev();
         
         if (!prevSound.length) {
-            prevSound = self.meta.find('a:last-child');
+            prevSound = self.tracks.find('a:last-child');
         }
 
         prevSound.addClass('on');
@@ -255,9 +254,16 @@ var SOUND = {
         var name = prevSound.data('name');
 
         self.setSource(name);
-    },    
+    },
 
-    getCurrentTime : function(value){
+    setTrackName : function(){
+
+        var title = this.tracks.find('.on').text();
+
+        this.meta.find('.name').text(title);
+    },
+
+    setCurrentTime : function(value){
         var time    = value,
             hours   = Math.floor(time / 3600);
             time    = time - hours * 3600,
@@ -272,7 +278,7 @@ var SOUND = {
             seconds = '0'+seconds;
         }
 
-        this.time.find('span').text(minutes+':'+seconds);        
+        this.meta.find('.time').text(minutes+':'+seconds);        
     },
 
     tickTock : function(e) {
@@ -283,7 +289,7 @@ var SOUND = {
             return false;
         }
         
-        self.getCurrentTime(secs);
+        self.setCurrentTime(secs);
         self.progress.slider('option', 'value', secs);        
     },
 
@@ -302,7 +308,8 @@ var SOUND = {
         if (secs == self.lastTime){
             // return false;
         }
-
+        
+        self.setTrackName();
         self.showState('pause');        
         self.progress.slider('option', 'max', self.duration);
         self.progress.slider('option', 'value', 0);

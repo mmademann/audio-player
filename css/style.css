@@ -165,7 +165,7 @@ body a {text-decoration: none;}
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ed7931', endColorstr='#ee5c00',GradientType=0 ); /* IE6-8 */
 }
 
-#time {
+#meta {
 	position: relative;
 	height: 0;
 	width:30%;
@@ -173,15 +173,20 @@ body a {text-decoration: none;}
 	clear: both;
 }
 
-#time span {
+#meta span {
 	position: absolute;
-	top:-35px; right:0px;
+	top:-32px; right:2px;
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 	
-	font-size:16px;
-	color:#EE5C00;
+	font-size:12px;
+	color:#777;
+	display: none;
 }
 
-#meta {
+#meta .name {
+	right:auto;left:2px;width:300px;
+}
+
+#tracks {
 	border: 1px solid black;
 	display:block;
 	margin:0 auto 30px;
@@ -204,7 +209,7 @@ body a {text-decoration: none;}
 	box-shadow: inset 0px 2px 2px rgba(0,0,0,.6);
 }
 
-#meta a {
+#tracks a {
 	display:block;
 	background:#2F3134;
 	color:#EE5C00;
@@ -226,7 +231,7 @@ body a {text-decoration: none;}
 	transition: all .4s ease;	
 }
 
-#meta a.on {
+#tracks a.on {
 	background:#EE5C00;
 	color:#000;
 }
@@ -245,7 +250,7 @@ body a {text-decoration: none;}
 /** smartphone (portrait and landscape) **/
 @media only screen and (min-width : 320px) and (max-width : 480px) {
 
-	#time,
+	#meta,
 	#progress {
 		width:80%;
 	}	
@@ -260,12 +265,12 @@ body a {text-decoration: none;}
 		height: 100%
 	}
 
-	#meta a:hover {
+	#tracks a:hover {
 		background:#26282B;
 		color:#EE5C00;
 	}
 
-	#meta a.on:hover {
+	#tracks a.on:hover {
 		background:#EE5C00;
 		color:#000;
 	}	
