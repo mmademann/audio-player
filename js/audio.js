@@ -28,7 +28,7 @@ var SOUND = {
         this.audio.src  = this.audio.canPlayType('audio/mpeg;') 
                           ? 'music/'+track+'.mp3' : 'music/'+track+'.ogg';
 
-        this.audio.load();
+        // this.audio.load();
 
         this.events();
     },
@@ -105,7 +105,7 @@ var SOUND = {
         self.audio.src  = self.audio.canPlayType('audio/mpeg;') 
                           ? 'music/'+name+'.mp3' : 'music/'+name+'.ogg';
         
-        self.audio.load();
+        // self.audio.load();
     },
 
     showState : function(state){
@@ -135,14 +135,6 @@ var SOUND = {
                 self.play();
             }
         }
-
-        // if (e.which === 93) {
-        //     self.next();
-        // }
-
-        // if (e.which === 91) {
-        //     self.prev();
-        // }
     },    
 
     play : function(e){
