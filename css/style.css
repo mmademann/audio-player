@@ -54,7 +54,7 @@ html {
 	display: inline-block;
 	width: 60px;
 	height: 60px;
-	background-image: url(../images/sprite.png);
+	background-image: url(../images/sprite3.png);
 	background-repeat: no-repeat;
 	margin-right: 10px;
 	margin-left: 10px;
@@ -67,12 +67,12 @@ html {
 }
 
 #control {
-	background-position: -95px -13px;
+	background-position: -100px -13px;
 	/*background-position: -32px 5px;*/
 }
 
 #control.play {
-	background-position: -13px -13px;
+	background-position: -20px -13px;
 	/*background-position: 6px 5px;*/
 }
 
@@ -95,7 +95,7 @@ html {
 	display: block;
 	float:none;
 	width:30%;
-	height: 15px;
+	height: 30px;
 	margin:30px auto 40px;
 	border: 1px solid black;
 
@@ -115,13 +115,14 @@ html {
 
 #progress.ui-slider-horizontal .ui-slider-handle {
 	display: block;
-	width: 20px;
-	height: 20px;
+	width: 34px;
+	height: 34px;
 	top:-3px;
 	border:1px solid black;
 
-	-webkit-border-radius: 10px;
-	border-radius: 10px;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;	
+	border-radius: 20px;
 
 	/*
 	background: #80e4df;
