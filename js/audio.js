@@ -291,10 +291,10 @@ var SOUND = {
 
         alert('loadstart');
 
-        if (self.isMobile){
-            self.resetSlider();
-            self.resetMeta();
-        }
+        // if (self.isMobile){
+        //     self.resetSlider();
+        //     self.resetMeta();
+        // }
     },
 
     canPlayThrough : function() {
