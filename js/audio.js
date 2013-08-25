@@ -282,8 +282,10 @@ var SOUND = {
         self.inProg = true;
 
         self.showState('pause');
-        self.resetProgress();
+        self.progress.slider('option', 'max', self.duration);        
+        self.progress.slider('option', 'value', 0);
         self.meta.find('.time').show();        
+        self.spinner.hide();
         self.audio.play();
 
         if (!self.isMobile){
