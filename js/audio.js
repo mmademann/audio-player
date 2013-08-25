@@ -287,8 +287,8 @@ var SOUND = SOUND || {
 
         if (isMobile){
             // alert('im mobile');
-            // self.resetSlider();
-            // self.resetMeta();
+            self.resetSlider();
+            self.resetMeta();
         }
     },
 
