@@ -36,15 +36,16 @@ var SOUND = {
     events : function(){
 
         this.theboss
+            .off('click')
             .on('click', '.play', this.play)
             .on('click', '.pause', this.pause)
             .on('click', '.track', this.changeSong)
-            .on('click', '.prev', this.prevTrack)
-            // .on('click', '.next', this.nextTrack)
+            .on('click', '.prever', this.prevTrack)
+            .on('click', '.nexter', this.nextTrack)
             .on('click', '#stop', this.stop)
             .on('click', '#volume', this.volume);
 
-            $('.next').off('click').on('click', this.nextTrack);
+            // $('.nexter').off('click').on('click', this.nextTrack);
 
         $(window).keypress(this.spacebar);
 
