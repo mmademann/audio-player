@@ -65,11 +65,9 @@ var SOUND = {
         }
 
         this.audio.addEventListener('timeupdate', this.tickTock);
-        // this.audio.addEventListener('loadstart', this.loadStart);
         this.audio.addEventListener('loadedmetadata', this.loadMeta);
         this.audio.addEventListener('loadeddata', this.loaded);
         this.audio.addEventListener('ended', this.ended);               
-
     },
 
     firstTrack : function(){
@@ -292,11 +290,6 @@ var SOUND = {
         self.progress.slider('option', 'value', secs);        
     },
 
-    loadStart : function(e) {
-        var self = SOUND;
-        // self.audio.load();
-    },
-
     loadMeta : function(e) {
 
         var self = SOUND;
@@ -313,7 +306,7 @@ var SOUND = {
             // return false;
         }
         
-        self.setTrackName();
+        // self.setTrackName();
         self.showState('pause');        
         self.progress.slider('option', 'max', self.duration);
         self.progress.slider('option', 'value', 0);
