@@ -28,8 +28,6 @@ var SOUND = {
         this.audio.src  = this.audio.canPlayType('audio/mpeg;') 
                           ? 'music/'+track+'.mp3' : 'music/'+track+'.ogg';
 
-        // this.audio.load();
-
         this.events();
     },
 
@@ -70,7 +68,8 @@ var SOUND = {
         this.audio.addEventListener('canplaythrough', this.canPlayThrough);
 
         this.audio.load();
-    },    
+        this.mobileLoad();
+    },
 
     play : function(e){
         try{e.preventDefault()}catch(e){}            
@@ -284,15 +283,13 @@ var SOUND = {
         alert('loadedmeta');
     },
 
-    loadStart : function(){
+    mobileLoad : function(){
         var self = SOUND;
 
-        // alert('loadstart');
-
-        // if (self.isMobile){
-        //     self.resetSlider();
-        //     self.resetMeta();
-        // }
+        if (self.isMobile){
+            self.resetSlider();
+            self.resetMeta();
+        }
     },
 
     canPlayThrough : function() {
