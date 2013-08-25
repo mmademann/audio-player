@@ -146,13 +146,13 @@ var SOUND = SOUND || {
     },
 
     'showSpinner' : function() {
-        this.meta.find('.time').show();
+        this.meta.find('.time').hide();
         this.spinner.show();
     },
 
     'hideSpinner' : function() {
-        this.meta.find('.time').hide();
-        this.spinner.show();
+        this.meta.find('.time').show();
+        this.spinner.hide();
     },
 
     'resetSlider' : function() {
