@@ -65,9 +65,11 @@ var SOUND = {
         }
 
         this.audio.addEventListener('timeupdate', this.tickTock);
+        this.audio.addEventListener('loadstart', this.loadStart);
         this.audio.addEventListener('loadedmetadata', this.loadMeta);
-        this.audio.addEventListener('ended', this.ended);               
         this.audio.addEventListener('loadeddata', this.loaded);
+        this.audio.addEventListener('ended', this.ended);               
+
     },
 
     firstTrack : function(){
@@ -288,6 +290,11 @@ var SOUND = {
         
         self.setCurrentTime(secs);
         self.progress.slider('option', 'value', secs);        
+    },
+
+    loadStart : function() {
+        var self = SOUND;
+        self.audio.load();
     },
 
     loadMeta : function(e) {
