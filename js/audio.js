@@ -286,9 +286,8 @@ var SOUND = {
     mobileLoad : function(){
         var self = SOUND;
 
-        if (self.isMobile){
-
-            alert('mobile load');
+        if (isMobile){
+            // alert('isMobile: '+ isMobile);
             self.resetSlider();
             self.resetMeta();
         }
@@ -299,11 +298,14 @@ var SOUND = {
             secs = parseInt(this.currentTime, 10);
 
         if (secs == self.lastTime || 
-           (self.inProg && !self.isMobile)) {
+           self.inProg) {
             return false;
         }
 
-        alert('canPlayThrough pass');
+        console.log(self.inProg);
+
+
+        // alert('canPlayThrough pass');
 
         self.inProg = true;
 
@@ -312,9 +314,9 @@ var SOUND = {
         self.resetMeta();
         // this.play();
 
-        if (!self.isMobile){
-            setTimeout(function(){self.inProg = false}, 100);
-        }
+        // if (!isMobile){
+            setTimeout(function(){self.inProg = false}, 300);
+        // }
     }
 }
 
