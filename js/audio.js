@@ -90,6 +90,8 @@ var SOUND = {
 
         var name = $(this).addClass('on').data('name');
 
+        alert('name: '+name);
+
         self.setSource(name);
     },
 
