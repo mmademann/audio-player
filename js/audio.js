@@ -16,8 +16,6 @@ var SOUND = SOUND || {
 
     'init' : function(){
 
-        // alert('inits');
-
         this.progress.slider();  
 
         var track       = this.getFirstTrack();
@@ -31,6 +29,7 @@ var SOUND = SOUND || {
                           ? 'music/'+track+'.mp3' : 'music/'+track+'.ogg';
 
         this.events();
+        alert('PLEASE NOW');
     },
 
     'events' : function(){
