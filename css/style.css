@@ -100,6 +100,7 @@ body a {text-decoration: none;}
 }
 
 #stop {
+	display: none;
 	background-position: -180px -12px;
 	/*background-position: -146px 5px;*/	
 }
