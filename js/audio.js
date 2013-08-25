@@ -284,8 +284,8 @@ var SOUND = {
         var self = SOUND,
             secs = parseInt(this.currentTime, 10);
 
-        if ( secs == self.lastTime || 
-           ( self.inProg && !self.isMobile) ) {
+        if (secs == self.lastTime || 
+           (self.inProg && !self.isMobile)) {
             return false;
         }
 
@@ -296,7 +296,7 @@ var SOUND = {
         self.resetMeta();
         this.play();
 
-        if (!self.isMobile){
+        if (secs == self.lastTime || !self.isMobile){
             setTimeout(function(){self.inProg = false}, 100);
         }
     }
