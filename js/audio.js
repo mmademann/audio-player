@@ -225,16 +225,20 @@ var SOUND = {
     nextTrack : function(e){
         try{e.preventDefault()}catch(e){}
 
-        var self = SOUND;
+        var self = SOUND,
 
-        var currSound = self.meta.find('.on').removeClass('on'),
+            currSound = self.meta.find('.on').removeClass('on'),
             nextSound = currSound.next();
+
+        alert(nextSound.data('name'));
 
         if (!nextSound.length) {
             nextSound = self.meta.find('a.track').eq(0);
         }
 
         nextSound.addClass('on');
+
+        alert(nextSound.data('name'));
 
         var name = nextSound.data('name');
 
@@ -244,16 +248,20 @@ var SOUND = {
     prevTrack : function(e){
         try{e.preventDefault()}catch(e){}
 
-        var self = SOUND;
+        var self = SOUND,
 
-        var currSound = self.meta.find('.on').removeClass('on'),
+            currSound = self.meta.find('.on').removeClass('on'),
             prevSound = currSound.prev();
+        
+        alert(prevSound.data('name'));
 
         if (!prevSound.length) {
             prevSound = self.meta.find('a:last-child');
         }
 
         prevSound.addClass('on');
+
+        alert(prevSound.data('name'));
 
         var name = prevSound.data('name');
 
