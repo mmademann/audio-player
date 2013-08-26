@@ -70,20 +70,18 @@ var SOUND = SOUND || {
         }
 
         // add listeners to the audio element
-        this.audio.addEventListener('ended', this.ended);               
-        this.audio.addEventListener('timeupdate', this.timeUpdate);
         // this.audio.addEventListener('loadedmetadata', this.loadedMeta);
         // this.audio.addEventListener('canplaythrough', this.canPlayThrough);
+        this.audio.addEventListener('ended', this.ended);               
+        this.audio.addEventListener('timeupdate', this.timeUpdate);
 
         // load the audio
         this.audio.load();
 
-        this.readyInterval = setInterval(SOUND.checkLoadedState, 500);
-
-
-        // mobile safari wont dispatch canplaythrough
-        // at first, strange, not sure, just do this
-        // this.mobileLoad();        
+        // use interval to check readystate since
+        // canplay & canplaythrough act differently
+        this.readyInterval;
+        this.readyInterval = setInterval(this.checkLoadedState, 500);
     },
 
     'checkLoadedState' : function() {
@@ -92,7 +90,8 @@ var SOUND = SOUND || {
 
         if (ready == 4) {
             clearInterval(self.readyInterval);
-            self.canPlayThrough();
+            if (isMobile) {self.mobileLoad()}
+            else {self.canPlayThrough()}
         }
     },
 
@@ -327,50 +326,30 @@ var SOUND = SOUND || {
 
     // listen for meta data to load
     'loadedMeta' : function() {
-        SOUND.duration = this.duration;
+        this.duration = this.audio.duration;
     },
 
     // load mobile, just show the controls since
     // we dont know when the audio canPlayThrough
     'mobileLoad' : function(){
-        if (isMobile){
-            this.resetSlider();
-            this.hideSpinner();
-            this.setTrackName();
-            this.mLoaded = true;
-        }
+        this.loadedMeta();
+        this.setTrackName();
+        this.resetSlider();
+        this.hideSpinner();
     },
 
     // listen for the audio to load fully
     'canPlayThrough' : function() {
-        var self = SOUND,
-            secs = parseInt(this.currentTime, 10);
-
-        // if (isMobile && !self.mLoaded){
-        //     self.mLoaded = true;
-        //     return false;
-        // }
-
-        // stop firefox from throwing this event twice
-        // if (secs == self.lastTime || self.inProg) {
-        //     return false;
-        // }
-
-        // alert('can play new');
-
-        self.inProg = true;
+        var self = SOUND;
 
         // show the pause button, display the track name,
         // bring the slider to 0, hide the loader, and play
-        self.showState('pause');
+        // self.showState('pause');
         self.loadedMeta();
         self.setTrackName();
         self.resetSlider();
         self.hideSpinner();
-        this.play();
-
-        // Firefox fires canPlayThrough twice, so be careful
-        setTimeout(function(){self.inProg = false}, 1500);
+        self.play();
     }
 }
 
