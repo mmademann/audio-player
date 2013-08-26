@@ -67,7 +67,7 @@ var SOUND = SOUND || {
                 .on('mousedown', 'a', this.scrubDown);
         }
 
-        // add listeners to the audio
+        // add listeners to the audio element
         this.audio.addEventListener('ended', this.ended);               
         this.audio.addEventListener('timeupdate', this.timeUpdate);
         this.audio.addEventListener('loadedmetadata', this.loadedMeta);
@@ -76,8 +76,9 @@ var SOUND = SOUND || {
         // load the audio
         this.audio.load();
         
-        // mobile safari doesn't fire canplaythrough
-        // unless the user physically plays the audio first
+        // mobile safari wont dispatch canplaythrough
+        // unless the user physically plays the audio
+        // therefore, setup the player differently
         this.mobileLoad();
     },
 
@@ -185,6 +186,8 @@ var SOUND = SOUND || {
             currSound = self.tracks.find('.on'),
             nextSound = $(this).is('.track') ? $(this) : currSound.next();
 
+        // if the current track is the last on the list
+        // the next track should be the first on the list
         if (!nextSound.length) {
             nextSound = self.tracks.find('a.track').eq(0);
         }
@@ -192,12 +195,14 @@ var SOUND = SOUND || {
         currSound.removeClass('on');
         nextSound.addClass('on');
 
+        // visual loading
         self.setTrackName();
         self.showSpinner();
         self.resetSlider();        
 
         var name = nextSound.data('name');
 
+        // now change the audio src
         self.setSource(name);
     },
 
@@ -209,6 +214,8 @@ var SOUND = SOUND || {
             currSound = self.tracks.find('.on'),
             prevSound = currSound.prev();       
 
+        // if the current track is the first on the list
+        // the previous track should be the last on the list            
         if (!prevSound.length) {
             prevSound = self.tracks.find('a:last-child');
         }
@@ -216,12 +223,14 @@ var SOUND = SOUND || {
         currSound.removeClass('on');
         prevSound.addClass('on');
 
+        // visual loading
         self.setTrackName();
         self.showSpinner();
-        self.resetSlider();         
+        self.resetSlider();        
 
         var name = prevSound.data('name');
 
+        // now change the audio src
         self.setSource(name);
     },
 
@@ -269,14 +278,9 @@ var SOUND = SOUND || {
         this.meta.find('.time').text(minutes+':'+seconds);        
     },    
 
-    // give me the name of the first track
+    // fetch the name of the first track
     'getFirstTrack' : function(){
         return this.tracks.find('a').eq(0).addClass('on').data('name');
-    },
-
-    // remove on states from active tracks
-    'clearActives' : function(){
-        this.tracks.find('a').removeClass('on');        
     },
 
     // shortcut for playing/pausing
@@ -331,6 +335,8 @@ var SOUND = SOUND || {
 
         self.inProg = true;
 
+        // show the pause button, display the track name,
+        // bring the slider to 0, hide the loader, and play
         self.showState('pause');
         self.setTrackName();
         self.resetSlider();
