@@ -1,4 +1,4 @@
-var isMobile = false;
+    var isMobile = false;
 
 if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     isMobile = true;
@@ -78,23 +78,23 @@ var SOUND = SOUND || {
         // load the audio
         this.audio.load();
 
-        // set an interval to check readystate since
-        // canplay & canplaythrough act differently
+        // set an interval to check readystate
         if (isMobile){
             this.mobileLoad();
         } else {
-            this.interval = setInterval(this.checkLoadedState, 500, true);
+            this.interval = setInterval(this.checkReadyState, 500, true);
         }
     },
 
-    // wait until the readystate is HAVE_ENOUGH_DATA (4)
-    'checkLoadedState' : function() {
+    // wait until the readystate is 4 (HAVE_ENOUGH_DATA)
+    'checkReadyState' : function() {
         var self  = SOUND,
             ready = self.audio.readyState;
 
         if (ready == 4) {
             clearInterval(self.interval);
-            self.canPlayThrough();
+            self.interval = '';
+            self.readyToPlay();
         }
     },
 
@@ -261,7 +261,7 @@ var SOUND = SOUND || {
         self.audio.load();
 
         // wait until the readystate is HAVE_ENOUGH_DATA (4)
-        self.interval = setInterval(self.checkLoadedState, 500, true);        
+        self.interval = setInterval(self.checkReadyState, 500, true);        
     },
 
     // toggle between play and pause buttons
@@ -326,6 +326,7 @@ var SOUND = SOUND || {
         }
         
         self.setCurrentTime(secs);
+        self.progress.slider('option', 'max', self.audio.duration);
         self.progress.slider('option', 'value', secs);     
     },
 
@@ -342,8 +343,8 @@ var SOUND = SOUND || {
         this.hideSpinner();
     },
 
-    // listen for the audio to load fully
-    'canPlayThrough' : function() {
+    // listen for the audio to fully load
+    'readyToPlay' : function() {
 
         // show the pause button, display the track name,
         // bring the slider to 0, hide the loader, and play
@@ -353,8 +354,6 @@ var SOUND = SOUND || {
         this.play();
     }
 }
-
-// SOUND.init();
 
 $(document).ready(function(){
     SOUND.init();
