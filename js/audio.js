@@ -171,7 +171,8 @@ var SOUND = SOUND || {
 
     // bring the slider back to 0
     'resetSlider' : function() {
-        this.seek.slider('option', 'max', this.duration);        
+        this.seek.slider('option', 'max', this.duration);
+        this.seek.slider('option', 'range', 'min');           
         this.seek.slider('option', 'value', 0);
         this.setCurrentTime(0);          
     },  
@@ -354,7 +355,7 @@ var SOUND = SOUND || {
         this.hideSpinner();
     },
 
-    // when the audio to fully loaded
+    // when the audio is fully loaded
     'readyToPlay' : function() {
 
         // display the track name, bring the 

@@ -122,6 +122,13 @@ body a {text-decoration: none;}
 	background:#242323;
 }
 
+#seek.ui-slider-horizontal .ui-slider-range{
+	background:#313337;
+	-webkit-box-shadow: inset 0px 4px 4px rgba(0,0,0,.3);
+	-moz-box-shadow: inset 0px 4px 4px rgba(0,0,0,.3);
+	box-shadow: inset 0px 4px 4px rgba(0,0,0,.3);	
+}
+
 #seek.ui-slider-horizontal .ui-slider-handle {
 	display: block;
 	width: 34px;
@@ -253,7 +260,7 @@ body a {text-decoration: none;}
 
 #tracks a {
 	display:block;
-	background:#313337;
+	background:#26282B;
 	color:#EE5C00;
 	font-size:16px;
 	padding:15px 10px;
@@ -312,7 +319,7 @@ body a {text-decoration: none;}
 	}
 
 	#tracks a:hover {
-		background:#26282B;
+		background:#313337;
 		color:#EE5C00;
 	}
 
