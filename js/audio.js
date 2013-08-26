@@ -31,6 +31,8 @@ var SOUND = SOUND || {
         
         this.audio.src  = this.audio.canPlayType('audio/mpeg;') 
                           ? 'music/'+track+'.mp3' : 'music/'+track+'.ogg';
+        
+        alert('cooool');
 
         // bind events
         this.events();
@@ -73,14 +75,28 @@ var SOUND = SOUND || {
         this.audio.addEventListener('ended', this.ended);               
         this.audio.addEventListener('timeupdate', this.timeUpdate);
         this.audio.addEventListener('loadedmetadata', this.loadedMeta);
-        this.audio.addEventListener('canplaythrough', this.canPlayThrough);
+        // this.audio.addEventListener('canplaythrough', this.canPlayThrough);
 
         // load the audio
         this.audio.load();
 
+        this.readyInterval = setInterval(SOUND.checkLoadedState, 500);
+
+
         // mobile safari wont dispatch canplaythrough
         // at first, strange, not sure, just do this
-        this.mobileLoad();        
+        // this.mobileLoad();        
+    },
+
+    'checkLoadedState' : function() {
+        var self  = SOUND,
+            ready = self.audio.readyState;
+
+        if (ready == 4) {
+            clearInterval(self.readyInterval);
+            self.canPlayThrough();
+            console.log('here');
+        }
     },
 
     'play' : function(e){
@@ -237,13 +253,14 @@ var SOUND = SOUND || {
 
     // swap out the audio file
     'setSource' : function(name){
-
         var self = SOUND;        
 
         self.audio.src  = self.audio.canPlayType('audio/mpeg;') 
                           ? 'music/'+name+'.mp3' : 'music/'+name+'.ogg';
         
         self.audio.load();
+
+        self.readyInterval = setInterval(self.checkLoadedState, 500);        
     },
 
     // toggle between play and pause buttons
@@ -332,15 +349,17 @@ var SOUND = SOUND || {
         var self = SOUND,
             secs = parseInt(this.currentTime, 10);
 
-        if (isMobile && !self.mLoaded){
-            self.mLoaded = true;
-            return false;
-        }
+        // if (isMobile && !self.mLoaded){
+        //     self.mLoaded = true;
+        //     return false;
+        // }
 
         // stop firefox from throwing this event twice
-        if (secs == self.lastTime || self.inProg) {
-            return false;
-        }
+        // if (secs == self.lastTime || self.inProg) {
+        //     return false;
+        // }
+
+        alert('can play new');
 
         self.inProg = true;
 
