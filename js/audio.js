@@ -78,7 +78,7 @@ var SOUND = SOUND || {
         // load the audio
         this.audio.load();
 
-        // use interval to check readystate since
+        // set an interval to check readystate since
         // canplay & canplaythrough act differently
         if (isMobile){
             this.mobileLoad();
@@ -87,6 +87,7 @@ var SOUND = SOUND || {
         }
     },
 
+    // wait until the readystate is HAVE_ENOUGH_DATA (4)
     'checkLoadedState' : function() {
         var self  = SOUND,
             ready = self.audio.readyState;
@@ -201,8 +202,8 @@ var SOUND = SOUND || {
             currSound = self.tracks.find('.on'),
             nextSound = $(this).is('.track') ? $(this) : currSound.next();
 
-        // if the current track is the last on the list
-        // the next track should be the first on the list
+        // if the current track is the last
+        // the next track should be the first
         if (!nextSound.length) {
             nextSound = self.tracks.find('a.track').eq(0);
         }
@@ -229,8 +230,8 @@ var SOUND = SOUND || {
             currSound = self.tracks.find('.on'),
             prevSound = currSound.prev();       
 
-        // if the current track is the first on the list
-        // the previous track should be the last on the list            
+        // if the current track is the first
+        // the previous track should be the last           
         if (!prevSound.length) {
             prevSound = self.tracks.find('a:last-child');
         }
@@ -256,8 +257,10 @@ var SOUND = SOUND || {
         self.audio.src  = self.audio.canPlayType('audio/mpeg;') 
                           ? 'music/'+name+'.mp3' : 'music/'+name+'.ogg';
         
+        // load er up
         self.audio.load();
 
+        // wait until the readystate is HAVE_ENOUGH_DATA (4)
         self.interval = setInterval(self.checkLoadedState, 500, true);        
     },
 
@@ -331,8 +334,8 @@ var SOUND = SOUND || {
         SOUND.duration = this.duration;
     },
 
-    // load mobile, just show the controls since
-    // we dont know when the audio canPlayThrough
+    // load mobile, just show 
+    // the controls and dont play
     'mobileLoad' : function(){
         this.setTrackName();
         this.resetSlider();
@@ -341,11 +344,9 @@ var SOUND = SOUND || {
 
     // listen for the audio to load fully
     'canPlayThrough' : function() {
-        var self = SOUND;
 
         // show the pause button, display the track name,
         // bring the slider to 0, hide the loader, and play
-        this.showState('pause');
         this.setTrackName();
         this.resetSlider();
         this.hideSpinner();
