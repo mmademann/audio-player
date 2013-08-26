@@ -185,16 +185,16 @@ var SOUND = SOUND || {
             currSound = self.tracks.find('.on'),
             nextSound = $(this).is('.track') ? $(this) : currSound.next();
 
-        self.setTrackName();
-        self.showSpinner();
-        self.resetSlider();
-
         if (!nextSound.length) {
             nextSound = self.tracks.find('a.track').eq(0);
         }
 
         currSound.removeClass('on');
         nextSound.addClass('on');
+
+        self.setTrackName();
+        self.showSpinner();
+        self.resetSlider();        
 
         var name = nextSound.data('name');
 
@@ -207,11 +207,7 @@ var SOUND = SOUND || {
 
         var self = SOUND,
             currSound = self.tracks.find('.on'),
-            prevSound = currSound.prev();
-        
-        self.setTrackName();
-        self.showSpinner();
-        self.resetSlider();        
+            prevSound = currSound.prev();       
 
         if (!prevSound.length) {
             prevSound = self.tracks.find('a:last-child');
@@ -219,6 +215,10 @@ var SOUND = SOUND || {
         
         currSound.removeClass('on');
         prevSound.addClass('on');
+
+        self.setTrackName();
+        self.showSpinner();
+        self.resetSlider();         
 
         var name = prevSound.data('name');
 
