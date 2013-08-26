@@ -125,6 +125,7 @@ var SOUND = SOUND || {
         $(this).toggleClass('mute');        
     },
 
+    // mousedown or touchstart for scrubber
     'scrubDown' : function() {
         var self = SOUND;
 
@@ -132,6 +133,7 @@ var SOUND = SOUND || {
         self.showState('play');
     },
 
+    // mouseup or touchend for slider
     'scrubUp' : function() {
         var self = SOUND;
 
@@ -139,6 +141,7 @@ var SOUND = SOUND || {
         self.showState('pause');
     },
 
+    // moving the slider
     'slide' : function(e) {
         var self  = SOUND,
             value = self.progress.slider('option', 'value');
@@ -148,32 +151,33 @@ var SOUND = SOUND || {
         self.audio.currentTime = value;
     },
 
+    // listen for the end of a track
+    // and then skip to the next song
     'ended' : function() {
         var self = SOUND;
         self.nextTrack();
     },
 
+    // reveal loading spiner
     'showSpinner' : function() {
         this.meta.find('.time').hide();
         this.spinner.show();
     },
 
+    // hide loading spinner
     'hideSpinner' : function() {
         this.meta.find('.time').show();
         this.spinner.hide();
     },
 
+    // bring the slider back to 0
     'resetSlider' : function() {
         this.progress.slider('option', 'max', this.duration);        
         this.progress.slider('option', 'value', 0);
         this.setCurrentTime(0);          
-    }, 
+    },  
 
-    'resetMeta' : function() {
-        this.toggleSpinner();
-        this.setTrackName();      
-    },    
-
+    // skip to the next track
     'nextTrack' : function(e){
         try{e.preventDefault()}catch(e){}
 
@@ -181,6 +185,7 @@ var SOUND = SOUND || {
             currSound = self.tracks.find('.on'),
             nextSound = $(this).is('.track') ? $(this) : currSound.next();
 
+        self.setTrackName();
         self.showSpinner();
         self.resetSlider();
 
@@ -196,6 +201,7 @@ var SOUND = SOUND || {
         self.setSource(name);
     },
 
+    // skip to the previous track
     'prevTrack' : function(e){
         try{e.preventDefault()}catch(e){}
 
@@ -203,6 +209,7 @@ var SOUND = SOUND || {
             currSound = self.tracks.find('.on'),
             prevSound = currSound.prev();
         
+        self.setTrackName();
         self.showSpinner();
         self.resetSlider();        
 
@@ -218,6 +225,7 @@ var SOUND = SOUND || {
         self.setSource(name);
     },
 
+    // swap out the audio file
     'setSource' : function(name){
 
         var self = SOUND;        
@@ -226,10 +234,9 @@ var SOUND = SOUND || {
                           ? 'music/'+name+'.mp3' : 'music/'+name+'.ogg';
         
         self.audio.load();
-
-        // self.play();
     },
 
+    // toggle between play and pause buttons
     'showState' : function(state){
         var on  = state == 'play' ? 'play'  : 'pause',
             off = state == 'play' ? 'pause' : 'play';
@@ -237,11 +244,13 @@ var SOUND = SOUND || {
         this.control.addClass(on).removeClass(off);
     },
 
+    // display the track name
     'setTrackName' : function(){
         var title = this.tracks.find('.on').text();
         this.meta.find('.name').text(title);
     },
 
+    // update the audio time
     'setCurrentTime' : function(value){
         var time    = value,
             hours   = Math.floor(time / 3600);
@@ -260,14 +269,17 @@ var SOUND = SOUND || {
         this.meta.find('.time').text(minutes+':'+seconds);        
     },    
 
+    // give me the name of the first track
     'getFirstTrack' : function(){
         return this.tracks.find('a').eq(0).addClass('on').data('name');
     },
 
+    // remove on states from active tracks
     'clearActives' : function(){
         this.tracks.find('a').removeClass('on');        
     },
 
+    // shortcut for playing/pausing
     'spacebar' : function(e){
         var self = SOUND;        
 
@@ -281,6 +293,7 @@ var SOUND = SOUND || {
         }
     },
 
+    // listen for audio time changes
     'timeUpdate' : function() {
         var self = SOUND,
             secs = parseInt(self.audio.currentTime, 10);
@@ -293,12 +306,13 @@ var SOUND = SOUND || {
         self.progress.slider('option', 'value', secs);        
     },
 
+    // listen for meta data to laod
     'loadedMeta' : function() {
         SOUND.duration = this.duration;
     },
 
+    // load mobile
     'mobileLoad' : function(){
-
         if (isMobile){
             this.resetSlider();
             this.hideSpinner();
@@ -306,6 +320,7 @@ var SOUND = SOUND || {
         }
     },
 
+    // listen for the audio to be playable
     'canPlayThrough' : function() {
         var self = SOUND,
             secs = parseInt(this.currentTime, 10);
