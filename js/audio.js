@@ -259,7 +259,7 @@ var SOUND = SOUND || {
         this.meta.find('.name').text(title);
     },
 
-    // update the audio time
+    // update the time ticker
     'setCurrentTime' : function(value){
         var time    = value,
             hours   = Math.floor(time / 3600);
@@ -310,12 +310,13 @@ var SOUND = SOUND || {
         self.progress.slider('option', 'value', secs);        
     },
 
-    // listen for meta data to laod
+    // listen for meta data to load
     'loadedMeta' : function() {
         SOUND.duration = this.duration;
     },
 
-    // load mobile
+    // load mobile, just show the controls since
+    // we dont know when the audio canPlayThrough
     'mobileLoad' : function(){
         if (isMobile){
             this.resetSlider();
@@ -324,11 +325,12 @@ var SOUND = SOUND || {
         }
     },
 
-    // listen for the audio to be playable
+    // listen for the audio to load fully
     'canPlayThrough' : function() {
         var self = SOUND,
             secs = parseInt(this.currentTime, 10);
 
+        // stop firefox from throwing this event twice
         if (secs == self.lastTime || self.inProg) {
             return false;
         }
