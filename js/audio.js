@@ -80,7 +80,7 @@ var SOUND = SOUND || {
 
         // set an interval to check readystate
         if (isMobile){
-            this.mobileLoad();
+            this.mobileReady();
         } else {
             this.interval = setInterval(this.checkReadyState, 500, true);
         }
@@ -337,7 +337,7 @@ var SOUND = SOUND || {
 
     // load mobile, just show 
     // the controls and dont play
-    'mobileLoad' : function(){
+    'mobileReady' : function(){
         this.setTrackName();
         this.resetSlider();
         this.hideSpinner();
