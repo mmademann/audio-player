@@ -79,8 +79,7 @@ var SOUND = SOUND || {
         this.audio.load();
 
         // mobile safari wont dispatch canplaythrough
-        // unless the user physically plays the audio
-        // therefore, setup the player differently
+        // at first, strange, not sure, just do this
         this.mobileLoad();        
     },
 
@@ -335,7 +334,6 @@ var SOUND = SOUND || {
 
         if (isMobile && !self.mLoaded){
             self.mLoaded = true;
-            alert('fail');
             return false;
         }
 
