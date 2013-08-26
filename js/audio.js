@@ -31,8 +31,6 @@ var SOUND = SOUND || {
         
         this.audio.src  = this.audio.canPlayType('audio/mpeg;') 
                           ? 'music/'+track+'.mp3' : 'music/'+track+'.ogg';
-        
-        alert('cooool');
 
         // bind events
         this.events();
@@ -74,7 +72,7 @@ var SOUND = SOUND || {
         // add listeners to the audio element
         this.audio.addEventListener('ended', this.ended);               
         this.audio.addEventListener('timeupdate', this.timeUpdate);
-        this.audio.addEventListener('loadedmetadata', this.loadedMeta);
+        // this.audio.addEventListener('loadedmetadata', this.loadedMeta);
         // this.audio.addEventListener('canplaythrough', this.canPlayThrough);
 
         // load the audio
@@ -95,7 +93,6 @@ var SOUND = SOUND || {
         if (ready == 4) {
             clearInterval(self.readyInterval);
             self.canPlayThrough();
-            console.log('here');
         }
     },
 
@@ -359,13 +356,14 @@ var SOUND = SOUND || {
         //     return false;
         // }
 
-        alert('can play new');
+        // alert('can play new');
 
         self.inProg = true;
 
         // show the pause button, display the track name,
         // bring the slider to 0, hide the loader, and play
         self.showState('pause');
+        self.loadedMeta();
         self.setTrackName();
         self.resetSlider();
         self.hideSpinner();
