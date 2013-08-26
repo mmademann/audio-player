@@ -1,10 +1,12 @@
 var isMobile = false;
+
 if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     isMobile = true;
 }
 
 var SOUND = SOUND || {
 
+    'mLoaded'     : false,
     'inProg'      : false,
     'outer'       : $('#outer'),
     'progress'    : $('#progress'),
@@ -75,11 +77,11 @@ var SOUND = SOUND || {
 
         // load the audio
         this.audio.load();
-        
+
         // mobile safari wont dispatch canplaythrough
         // unless the user physically plays the audio
         // therefore, setup the player differently
-        this.mobileLoad();
+        this.mobileLoad();        
     },
 
     'play' : function(e){
@@ -280,9 +282,7 @@ var SOUND = SOUND || {
 
     // fetch the name of the first track
     'getFirstTrack' : function(){
-        var first = this.tracks.find('a').eq(0).addClass('on'),
-            name  = name.data('name');
-        return name;
+        return this.tracks.find('a').eq(0).addClass('on').data('name');
     },
 
     // shortcut for playing/pausing
@@ -323,7 +323,8 @@ var SOUND = SOUND || {
         if (isMobile){
             this.resetSlider();
             this.hideSpinner();
-            this.setTrackName();            
+            this.setTrackName();
+            this.mLoaded = true;
         }
     },
 
@@ -331,6 +332,11 @@ var SOUND = SOUND || {
     'canPlayThrough' : function() {
         var self = SOUND,
             secs = parseInt(this.currentTime, 10);
+
+        if (isMobile && !self.mLoaded){
+            self.mLoaded = true;
+            // return false;
+        }
 
         // stop firefox from throwing this event twice
         if (secs == self.lastTime || self.inProg) {
@@ -348,10 +354,12 @@ var SOUND = SOUND || {
         this.play();
 
         // Firefox fires canPlayThrough twice, so be careful
-        setTimeout(function(){self.inProg = false}, 300);
+        setTimeout(function(){self.inProg = false}, 1500);
     }
 }
 
-$(document).ready(function() {
-    SOUND.init();
+SOUND.init();
+
+$(document).ready(function(){
+    // SOUND.init();
 });
