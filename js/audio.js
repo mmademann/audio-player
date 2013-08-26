@@ -335,7 +335,8 @@ var SOUND = SOUND || {
 
         if (isMobile && !self.mLoaded){
             self.mLoaded = true;
-            // return false;
+            alert('fail');
+            return false;
         }
 
         // stop firefox from throwing this event twice
