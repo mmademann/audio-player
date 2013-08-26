@@ -1,136 +1,3 @@
-// (function (window) {
-
-//         // This library re-implements setTimeout, setInterval, clearTimeout, clearInterval for iOS6.
-//         // iOS6 suffers from a bug that kills timers that are created while a page is scrolling.
-//         // This library fixes that problem by recreating timers after scrolling finishes (with interval correction).
-//     // This code is free to use by anyone (MIT, blabla).
-//     // Author: rkorving@wizcorp.jp
-
-//         var timeouts = {};
-//         var intervals = {};
-//         var orgSetTimeout = window.setTimeout;
-//         var orgSetInterval = window.setInterval;
-//         var orgClearTimeout = window.clearTimeout;
-//         var orgClearInterval = window.clearInterval;
-
-
-//         function createTimer(set, map, args) {
-//                 var id, cb = args[0], repeat = (set === orgSetInterval);
-
-//                 function callback() {
-//                         if (cb) {
-//                                 cb.apply(window, arguments);
-
-//                                 if (!repeat) {
-//                                         delete map[id];
-//                                         cb = null;
-//                                 }
-//                         }
-//                 }
-
-//                 args[0] = callback;
-
-//                 id = set.apply(window, args);
-
-//                 map[id] = { args: args, created: Date.now(), cb: cb, id: id };
-
-//                 return id;
-//         }
-
-
-//         function resetTimer(set, clear, map, virtualId, correctInterval) {
-//                 var timer = map[virtualId];
-
-//                 if (!timer) {
-//                         return;
-//                 }
-
-//                 var repeat = (set === orgSetInterval);
-
-//                 // cleanup
-
-//                 clear(timer.id);
-
-//                 // reduce the interval (arg 1 in the args array)
-
-//                 if (!repeat) {
-//                         var interval = timer.args[1];
-
-//                         var reduction = Date.now() - timer.created;
-//                         if (reduction < 0) {
-//                                 reduction = 0;
-//                         }
-
-//                         interval -= reduction;
-//                         if (interval < 0) {
-//                                 interval = 0;
-//                         }
-
-//                         timer.args[1] = interval;
-//                 }
-
-//                 // recreate
-
-//                 function callback() {
-//                         if (timer.cb) {
-//                                 timer.cb.apply(window, arguments);
-//                                 if (!repeat) {
-//                                         delete map[virtualId];
-//                                         timer.cb = null;
-//                                 }
-//                         }
-//                 }
-
-//                 timer.args[0] = callback;
-//                 timer.created = Date.now();
-//                 timer.id = set.apply(window, timer.args);
-//         }
-
-
-//         window.setTimeout = function () {
-//                 return createTimer(orgSetTimeout, timeouts, arguments);
-//         };
-
-
-//         window.setInterval = function () {
-//                 return createTimer(orgSetInterval, intervals, arguments);
-//         };
-
-//         window.clearTimeout = function (id) {
-//                 var timer = timeouts[id];
-
-//                 if (timer) {
-//                         delete timeouts[id];
-//                         orgClearTimeout(timer.id);
-//                 }
-//         };
-
-//         window.clearInterval = function (id) {
-//                 var timer = intervals[id];
-
-//                 if (timer) {
-//                         delete intervals[id];
-//                         orgClearInterval(timer.id);
-//                 }
-//         };
-
-//         window.addEventListener('scroll', function () {
-//                 // recreate the timers using adjusted intervals
-//                 // we cannot know how long the scroll-freeze lasted, so we cannot take that into account
-
-//                 var virtualId;
-
-//                 for (virtualId in timeouts) {
-//                         resetTimer(orgSetTimeout, orgClearTimeout, timeouts, virtualId);
-//                 }
-
-//                 for (virtualId in intervals) {
-//                         resetTimer(orgSetInterval, orgClearInterval, intervals, virtualId);
-//                 }
-//         });
-
-// }(window));
-
 var isMobile = false;
 
 if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -141,7 +8,6 @@ var SOUND = SOUND || {
 
     'mLoaded'     : false,
     'inProg'      : false,
-    'interval'    : '',
     'outer'       : $('#outer'),
     'progress'    : $('#progress'),
     'control'     : $('#control'),
@@ -204,10 +70,10 @@ var SOUND = SOUND || {
         }
 
         // add listeners to the audio element
-        // this.audio.addEventListener('loadedmetadata', this.loadedMeta);
         // this.audio.addEventListener('canplaythrough', this.canPlayThrough);
         this.audio.addEventListener('ended', this.ended);               
         this.audio.addEventListener('timeupdate', this.timeUpdate);
+        this.audio.addEventListener('loadedmetadata', this.loadedMeta);
 
         // load the audio
         this.audio.load();
@@ -457,18 +323,17 @@ var SOUND = SOUND || {
         }
         
         self.setCurrentTime(secs);
-        self.progress.slider('option', 'value', secs);        
+        self.progress.slider('option', 'value', secs);     
     },
 
     // listen for meta data to load
     'loadedMeta' : function() {
-        this.duration = this.audio.duration;
+        SOUND.duration = this.duration;
     },
 
     // load mobile, just show the controls since
     // we dont know when the audio canPlayThrough
     'mobileLoad' : function(){
-        this.loadedMeta();
         this.setTrackName();
         this.resetSlider();
         this.hideSpinner();
@@ -480,17 +345,16 @@ var SOUND = SOUND || {
 
         // show the pause button, display the track name,
         // bring the slider to 0, hide the loader, and play
-        // self.showState('pause');
-        self.loadedMeta();
-        self.setTrackName();
-        self.resetSlider();
-        self.hideSpinner();
-        self.play();
+        this.showState('pause');
+        this.setTrackName();
+        this.resetSlider();
+        this.hideSpinner();
+        this.play();
     }
 }
 
-SOUND.init();
+// SOUND.init();
 
 $(document).ready(function(){
-    // SOUND.init();
+    SOUND.init();
 });
