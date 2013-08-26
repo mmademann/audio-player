@@ -80,7 +80,9 @@ var SOUND = SOUND || {
 
         // use interval to check readystate since
         // canplay & canplaythrough act differently
-        this.readyInterval;
+
+        // alert('got here');
+        this.readyInterval = '';
         this.readyInterval = setInterval(this.checkLoadedState, 500);
     },
 
@@ -90,6 +92,7 @@ var SOUND = SOUND || {
 
         if (ready == 4) {
             clearInterval(self.readyInterval);
+            alert('interval');
             if (isMobile) {self.mobileLoad()}
             else {self.canPlayThrough()}
         }
