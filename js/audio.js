@@ -70,7 +70,6 @@ var SOUND = SOUND || {
         }
 
         // add listeners to the audio element
-        // this.audio.addEventListener('canplaythrough', this.canPlayThrough);
         this.audio.addEventListener('ended', this.ended);               
         this.audio.addEventListener('timeupdate', this.timeUpdate);
         this.audio.addEventListener('loadedmetadata', this.loadedMeta);
@@ -79,10 +78,11 @@ var SOUND = SOUND || {
         this.audio.load();
 
         // set an interval to check readystate
+        // since canplay is different across browsers
         if (isMobile){
             this.mobileReady();
         } else {
-            this.interval = setInterval(this.checkReadyState, 500, true);
+            this.interval = setInterval(this.checkReadyState, 500);
         }
     },
 
@@ -261,7 +261,7 @@ var SOUND = SOUND || {
         self.audio.load();
 
         // wait until the readystate is HAVE_ENOUGH_DATA (4)
-        self.interval = setInterval(self.checkReadyState, 500, true);        
+        self.interval = setInterval(self.checkReadyState, 500);        
     },
 
     // toggle between play and pause buttons
@@ -345,7 +345,7 @@ var SOUND = SOUND || {
 
     // listen for the audio to fully load
     'readyToPlay' : function() {
-
+        
         // show the pause button, display the track name,
         // bring the slider to 0, hide the loader, and play
         this.setTrackName();
