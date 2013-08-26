@@ -1,13 +1,10 @@
-    var isMobile = false;
-
+var isMobile = false;
 if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     isMobile = true;
 }
 
 var SOUND = SOUND || {
 
-    'mLoaded'     : false,
-    'inProg'      : false,
     'outer'       : $('#outer'),
     'progress'    : $('#progress'),
     'control'     : $('#control'),
@@ -16,15 +13,15 @@ var SOUND = SOUND || {
     'tracks'      : $('#tracks'),
     'meta'        : $('#meta'),
 
-    'init' : function(){
+    'initialize' : function(){
 
         // initialize the slider
         this.progress.slider();
 
-        var track       = this.getFirstTrack();
+        var track = this.getFirstTrack();
         
         // create the audio element
-        this.audio = new Audio('music/'+track+'.ogg','music/'+track+'.mp3');
+        this.audio      = new Audio('music/'+track+'.ogg','music/'+track+'.mp3');
 
         this.audio.type = this.audio.canPlayType('audio/mpeg;') 
                           ? 'audio/mpeg' : 'audio/ogg';
@@ -78,7 +75,7 @@ var SOUND = SOUND || {
         this.audio.load();
 
         // set an interval to check readystate
-        // since canplay is different across browsers
+        // since canplay varies across browsers
         if (isMobile){
             this.mobileReady();
         } else {
@@ -345,7 +342,7 @@ var SOUND = SOUND || {
 
     // listen for the audio to fully load
     'readyToPlay' : function() {
-        
+
         // show the pause button, display the track name,
         // bring the slider to 0, hide the loader, and play
         this.setTrackName();
@@ -356,5 +353,5 @@ var SOUND = SOUND || {
 }
 
 $(document).ready(function(){
-    SOUND.init();
+    SOUND.initialize();
 });
