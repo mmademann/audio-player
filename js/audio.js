@@ -126,7 +126,7 @@ var SOUND = SOUND || {
 
     // mousedown or touchstart for scrubber
     'scrubDown' : function() {
-        var self = SOUND;
+        var self = SOUND;     
 
         self.audio.pause();
         self.showState('play');
@@ -201,6 +201,7 @@ var SOUND = SOUND || {
         nextSound.addClass('on');
 
         // visual loading
+        self.seek.slider('disable');
         self.setTrackName();
         self.showSpinner();
         self.resetSlider();        
@@ -229,6 +230,7 @@ var SOUND = SOUND || {
         prevSound.addClass('on');
 
         // visual loading
+        self.seek.slider('disable');        
         self.setTrackName();
         self.showSpinner();
         self.resetSlider();        
@@ -359,6 +361,7 @@ var SOUND = SOUND || {
         // slider to 0, hide the spinner, & play
         this.setTrackName();
         this.resetSlider();
+        this.seek.slider('enable');
         this.hideSpinner();
         this.play();
         this.progress = false;
