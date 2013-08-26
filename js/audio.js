@@ -281,7 +281,7 @@ var SOUND = SOUND || {
 
     // fetch the name of the first track
     'getFirstTrack' : function(){
-        return this.tracks.find('a').eq(0).addClass('on').data('name');
+        return this.tracks.find('a').eq(0).data('name');
     },
 
     // shortcut for playing/pausing
