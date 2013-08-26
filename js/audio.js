@@ -1,12 +1,25 @@
+/*
+
+
+*   HTML5 Audio Player
+*   Date: 08/26/2013
+*   @author: Mike Mademann
+
+
+*/
+
+
 var isMobile = false;
+// some things are just different on mobile
 if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     isMobile = true;
 }
 
 var SOUND = SOUND || {
-
+    
+    'progress'    : false,
     'outer'       : $('#outer'),
-    'progress'    : $('#progress'),
+    'seek'        : $('#seek'),
     'control'     : $('#control'),
     'volume'      : $('#volume'),
     'spinner'     : $('#spinner'),
@@ -16,8 +29,9 @@ var SOUND = SOUND || {
     'initialize' : function(){
 
         // initialize the slider
-        this.progress.slider();
+        this.seek.slider();
 
+        // grab the name of the first track
         var track = this.getFirstTrack();
         
         // create the audio element
@@ -35,11 +49,11 @@ var SOUND = SOUND || {
 
     'events' : function(){
 
-        // click events for player controls
+        // click events
         this.outer
             .off('click')
-            .on('click', '.play', this.play)
             .on('click', '.pause', this.pause)
+            .on('click', '.play', this.nextTrack)
             .on('click', '.track', this.nextTrack)
             .on('click', '.s-next', this.nextTrack)
             .on('click', '.s-prev', this.prevTrack)
@@ -51,7 +65,7 @@ var SOUND = SOUND || {
         // different slider events for mobile
         if (isMobile) {          
 
-            this.progress
+            this.seek
                 .on('touchmove', this.slide)
                 .on('touchend', this.slide)
                 .on('touchend', this.scrubUp)
@@ -59,7 +73,7 @@ var SOUND = SOUND || {
 
         } else {           
 
-            this.progress
+            this.seek
                 .on('slide', this.slide)
                 .on('mouseup', this.slide)
                 .on('mouseup', this.scrubUp)
@@ -74,25 +88,8 @@ var SOUND = SOUND || {
         // load the audio
         this.audio.load();
 
-        // set an interval to check readystate
-        // since canplay varies across browsers
-        if (isMobile){
-            this.mobileReady();
-        } else {
-            this.interval = setInterval(this.checkReadyState, 500);
-        }
-    },
-
-    // wait until the readystate is 4 (HAVE_ENOUGH_DATA)
-    'checkReadyState' : function() {
-        var self  = SOUND,
-            ready = self.audio.readyState;
-
-        if (ready == 4) {
-            clearInterval(self.interval);
-            self.interval = '';
-            self.readyToPlay();
-        }
+        // setup the player
+        this.playerSetup();
     },
 
     'play' : function(e){
@@ -111,18 +108,6 @@ var SOUND = SOUND || {
 
         self.showState('play');
         self.audio.pause();        
-    },    
-
-    'stop' : function(e){
-        try{e.preventDefault()}catch(e){}
-
-        var self = SOUND;
-
-        self.showState('play');
-        self.audio.pause();
-        self.audio.currentTime = 0;
-        self.progress.slider('option', 'value', 0);
-        self.setCurrentTime(0);  
     },
 
     'volume' : function(e){
@@ -158,7 +143,7 @@ var SOUND = SOUND || {
     // moving the slider
     'slide' : function(e) {
         var self  = SOUND,
-            value = self.progress.slider('option', 'value');
+            value = self.seek.slider('option', 'value');
 
         self.setCurrentTime(value);
         self.lastTime = value;
@@ -186,8 +171,8 @@ var SOUND = SOUND || {
 
     // bring the slider back to 0
     'resetSlider' : function() {
-        this.progress.slider('option', 'max', this.duration);        
-        this.progress.slider('option', 'value', 0);
+        this.seek.slider('option', 'max', this.duration);        
+        this.seek.slider('option', 'value', 0);
         this.setCurrentTime(0);          
     },  
 
@@ -198,6 +183,13 @@ var SOUND = SOUND || {
         var self = SOUND,
             currSound = self.tracks.find('.on'),
             nextSound = $(this).is('.track') ? $(this) : currSound.next();
+
+        // play button merely plays the track
+        // from wherever it was paused
+        if ($(this).is('.play')) {
+            self.play();
+            return;
+        }      
 
         // if the current track is the last
         // the next track should be the first
@@ -247,19 +239,40 @@ var SOUND = SOUND || {
         self.setSource(name);
     },
 
-    // swap out the audio file
+    // swap out the audio source
     'setSource' : function(name){
-        var self = SOUND;        
+        var self = SOUND;      
 
         self.audio.src  = self.audio.canPlayType('audio/mpeg;') 
                           ? 'music/'+name+'.mp3' : 'music/'+name+'.ogg';
         
-        // load er up
+        // load the file
         self.audio.load();
+
+        // let the user skip through tracks rapidly
+        if (self.progress) {
+            return;
+        }
+        self.progress = true;          
 
         // wait until the readystate is HAVE_ENOUGH_DATA (4)
         self.interval = setInterval(self.checkReadyState, 500);        
     },
+
+    // canplay & canplaythrough differ across browsers
+    // so set an interval to check the readystate instead
+    // wait until the readystate is 4 (HAVE_ENOUGH_DATA)
+    // and then beging playing
+    'checkReadyState' : function() {
+        var self  = SOUND,
+            ready = self.audio.readyState;
+
+        if (ready == 4) {          
+            clearInterval(self.interval);
+            self.interval = '';
+            self.readyToPlay();
+        }
+    },    
 
     // toggle between play and pause buttons
     'showState' : function(state){
@@ -297,7 +310,7 @@ var SOUND = SOUND || {
     // fetch the name of the first track
     'getFirstTrack' : function(){
         return this.tracks.find('a').eq(0).data('name');
-    },
+    },  
 
     // shortcut for playing/pausing
     'spacebar' : function(e){
@@ -313,7 +326,7 @@ var SOUND = SOUND || {
         }
     },
 
-    // listen for audio time changes
+    // listen for time updates
     'timeUpdate' : function() {
         var self = SOUND,
             secs = parseInt(self.audio.currentTime, 10);
@@ -323,8 +336,8 @@ var SOUND = SOUND || {
         }
         
         self.setCurrentTime(secs);
-        self.progress.slider('option', 'max', self.audio.duration);
-        self.progress.slider('option', 'value', secs);     
+        self.seek.slider('option', 'max', self.audio.duration);
+        self.seek.slider('option', 'value', secs);     
     },
 
     // listen for meta data to load
@@ -332,23 +345,23 @@ var SOUND = SOUND || {
         SOUND.duration = this.duration;
     },
 
-    // load mobile, just show 
-    // the controls and dont play
-    'mobileReady' : function(){
+    // setup the player
+    'playerSetup' : function(){
         this.setTrackName();
         this.resetSlider();
         this.hideSpinner();
     },
 
-    // listen for the audio to fully load
+    // when the audio to fully loaded
     'readyToPlay' : function() {
 
-        // show the pause button, display the track name,
-        // bring the slider to 0, hide the loader, and play
+        // display the track name, bring the 
+        // slider to 0, hide the spinner, & play
         this.setTrackName();
         this.resetSlider();
         this.hideSpinner();
         this.play();
+        this.progress = false;
     }
 }
 
