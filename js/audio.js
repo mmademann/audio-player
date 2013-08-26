@@ -159,7 +159,7 @@ var SOUND = SOUND || {
         self.nextTrack();
     },
 
-    // reveal loading spiner
+    // reveal loading spinner
     'showSpinner' : function() {
         this.meta.find('.time').hide();
         this.spinner.show();
