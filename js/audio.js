@@ -31,16 +31,16 @@ var SOUND = SOUND || {
         this.seek.slider();
 
         // grab the name of the first track
-        var track = this.getFirstTrack();
+        var name = this.getFirstTrack();
         
         // create the audio element
-        this.audio      = new Audio('music/'+track+'.ogg','music/'+track+'.mp3');
+        this.audio = new Audio('music/'+name+'.ogg','music/'+name+'.mp3');
 
-        this.audio.type = this.audio.canPlayType('audio/mpeg;') 
-                          ? 'audio/mpeg' : 'audio/ogg';
-        
-        this.audio.src  = this.audio.canPlayType('audio/mpeg;') 
-                          ? 'music/'+track+'.mp3' : 'music/'+track+'.ogg';
+        // now set the audio src
+        this.setSource(name);
+
+        // visually setup the player
+        this.playerSetup();
 
         // bind events
         this.events();
@@ -83,12 +83,6 @@ var SOUND = SOUND || {
         this.audio.addEventListener('ended', this.ended);               
         this.audio.addEventListener('timeupdate', this.timeUpdate);
         this.audio.addEventListener('loadedmetadata', this.loadedMeta);
-
-        // load the audio
-        this.audio.load();
-
-        // setup the player
-        this.playerSetup();
     },
 
     'play' : function(e){
@@ -209,7 +203,7 @@ var SOUND = SOUND || {
         var name = nextSound.data('name');
 
         // now change the audio src
-        self.setSource(name);
+        self.changeTrack(name);
     },
 
     // skip to the previous track
@@ -238,27 +232,38 @@ var SOUND = SOUND || {
         var name = prevSound.data('name');
 
         // now change the audio src
-        self.setSource(name);
+        self.changeTrack(name);
     },
 
-    // swap out the audio source
-    'setSource' : function(name){
-        var self = SOUND;      
+    // handle track changing
+    'changeTrack' : function(name){
 
-        self.audio.src  = self.audio.canPlayType('audio/mpeg;') 
-                          ? 'music/'+name+'.mp3' : 'music/'+name+'.ogg';
-        
-        // load the file
-        self.audio.load();
+        // set the new audio src
+        this.setSource(name);         
 
         // let the user skip through tracks rapidly
-        if (self.progress) {
+        if (this.progress) {
             return;
         }
-        self.progress = true;          
+        this.progress = true;
 
         // wait until the readystate is HAVE_ENOUGH_DATA (4)
-        self.interval = setInterval(self.checkReadyState, 500);        
+        this.interval = setInterval(this.checkReadyState, 500);        
+    },    
+
+    // set the audio src & type
+    'setSource' : function(name){
+
+        // set the audio type
+        this.audio.type = this.audio.canPlayType('audio/mpeg;') 
+                          ? 'audio/mpeg' : 'audio/ogg';
+
+        // set the audio src
+        this.audio.src  = this.audio.canPlayType('audio/mpeg;') 
+                          ? 'music/'+name+'.mp3' : 'music/'+name+'.ogg';                          
+        
+        // load the file
+        this.audio.load();     
     },
 
     // canplay & canplaythrough differ across browsers
@@ -345,7 +350,7 @@ var SOUND = SOUND || {
     'loadedMeta' : function() {
         var self = SOUND;
         self.duration = this.duration;
-        self.seek.slider('option', 'max', self.duration);
+        self.seek.slider('option', 'max', self.duration);        
     },
 
     // setup the player
