@@ -81,7 +81,7 @@ body p {
 }
 
 #control.play {
-	background-position: -15px -13px;
+	background-position: -11px -13px;
 }
 
 #stop {
@@ -313,7 +313,7 @@ body p {
 	}
 
 	#buttons {
-		width:190px;
+		width:195px;
 	}
 
 	.volume {
