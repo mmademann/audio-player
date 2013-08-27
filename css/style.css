@@ -12,6 +12,16 @@ html {
 
 body a {text-decoration: none;}
 
+body p {
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-size:18px;
+	color:#ED7428;
+	margin:40px auto 0;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 8px
+}
+
 #outer {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;

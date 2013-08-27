@@ -18,12 +18,11 @@ if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigat
 var SOUND = SOUND || {
     
     'progress'    : false,
-    'outer'       : $('#outer'),
-    'seek'        : $('#seek'),
     'control'     : $('#control'),
-    'volume'      : $('#volume'),
     'spinner'     : $('#spinner'),
     'tracks'      : $('#tracks'),
+    'outer'       : $('#outer'),
+    'seek'        : $('#seek'),
     'meta'        : $('#meta'),
 
     'initialize' : function(){
@@ -80,7 +79,7 @@ var SOUND = SOUND || {
                 .on('mousedown', 'a', this.scrubDown);
         }
 
-        // add listeners to the audio element
+        // add listeners to the audio
         this.audio.addEventListener('ended', this.ended);               
         this.audio.addEventListener('timeupdate', this.timeUpdate);
         this.audio.addEventListener('loadedmetadata', this.loadedMeta);
