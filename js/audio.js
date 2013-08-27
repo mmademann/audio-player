@@ -18,17 +18,17 @@ if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigat
 var SOUND = SOUND || {
     
     'progress'    : false,
-    'control'     : $('#control'),
-    'spinner'     : $('#spinner'),
-    'tracks'      : $('#tracks'),
-    'outer'       : $('#outer'),
-    'seek'        : $('#seek'),
-    'meta'        : $('#meta'),
+    '$control'    : $('#control'),
+    '$spinner'    : $('#spinner'),
+    '$tracks'     : $('#tracks'),
+    '$outer'      : $('#outer'),
+    '$seek'       : $('#seek'),
+    '$meta'       : $('#meta'),
 
     'initialize' : function(){
 
         // initialize the slider
-        this.seek.slider();
+        this.$seek.slider();
 
         // grab the name of the first track
         var name = this.getFirstTrack();
@@ -49,7 +49,7 @@ var SOUND = SOUND || {
     'events' : function(){
 
         // click events
-        this.outer
+        this.$outer
             .off('click')
             .on('click', '.pause', this.pause)
             .on('click', '.play', this.nextTrack)
@@ -64,7 +64,7 @@ var SOUND = SOUND || {
         // different slider events for mobile
         if (isMobile) {          
 
-            this.seek
+            this.$seek
                 .on('touchmove', this.slide)
                 .on('touchend', this.slide)
                 .on('touchend', this.scrubUp)
@@ -72,7 +72,7 @@ var SOUND = SOUND || {
 
         } else {           
 
-            this.seek
+            this.$seek
                 .on('slide', this.slide)
                 .on('mouseup', this.slide)
                 .on('mouseup', this.scrubUp)
@@ -136,7 +136,7 @@ var SOUND = SOUND || {
     // moving the slider
     'slide' : function(e) {
         var self  = SOUND,
-            value = self.seek.slider('option', 'value');
+            value = self.$seek.slider('option', 'value');
 
         self.setCurrentTime(value);
         self.lastTime = value;
@@ -152,21 +152,21 @@ var SOUND = SOUND || {
 
     // reveal loading spinner
     'showSpinner' : function() {
-        this.meta.find('.time').hide();
-        this.spinner.show();
+        this.$meta.find('.time').hide();
+        this.$spinner.show();
     },
 
     // hide loading spinner
     'hideSpinner' : function() {
-        this.meta.find('.time').show();
-        this.spinner.hide();
+        this.$meta.find('.time').show();
+        this.$spinner.hide();
     },
 
     // bring the slider back to 0
     'resetSlider' : function() {
-        this.seek.slider('option', 'max', this.duration);
-        this.seek.slider('option', 'range', 'min');           
-        this.seek.slider('option', 'value', 0);
+        this.$seek.slider('option', 'max', this.duration);
+        this.$seek.slider('option', 'range', 'min');           
+        this.$seek.slider('option', 'value', 0);
         this.setCurrentTime(0);          
     },  
 
@@ -175,8 +175,8 @@ var SOUND = SOUND || {
         try{e.preventDefault()}catch(e){}
 
         var self = SOUND,
-            currSound = self.tracks.find('.on'),
-            nextSound = $(this).is('.track') ? $(this) : currSound.next();
+            $currSound = self.$tracks.find('.on'),
+            $nextSound = $(this).is('.track') ? $(this) : $currSound.next();
 
         // play button merely plays the track
         // from wherever it was paused
@@ -187,20 +187,20 @@ var SOUND = SOUND || {
 
         // if the current track is the last
         // the next track should be the first
-        if (!nextSound.length) {
-            nextSound = self.tracks.find('a.track').eq(0);
+        if (!$nextSound.length) {
+            $nextSound = self.$tracks.find('a.track').eq(0);
         }
 
-        currSound.removeClass('on');
-        nextSound.addClass('on');
+        $currSound.removeClass('on');
+        $nextSound.addClass('on');
 
         // visual loading
-        self.seek.slider('disable');
+        self.$seek.slider('disable');
         self.setTrackName();
         self.showSpinner();
         self.resetSlider();        
 
-        var name = nextSound.data('name');
+        var name = $nextSound.data('name');
 
         // now change the track for real
         self.changeTrack(name);
@@ -211,25 +211,25 @@ var SOUND = SOUND || {
         try{e.preventDefault()}catch(e){}
 
         var self = SOUND,
-            currSound = self.tracks.find('.on'),
-            prevSound = currSound.prev();       
+            $currSound = self.$tracks.find('.on'),
+            $prevSound = $currSound.prev();       
 
         // if the current track is the first
         // the previous track should be the last           
-        if (!prevSound.length) {
-            prevSound = self.tracks.find('a:last-child');
+        if (!$prevSound.length) {
+            $prevSound = self.$tracks.find('a:last-child');
         }
         
-        currSound.removeClass('on');
-        prevSound.addClass('on');
+        $currSound.removeClass('on');
+        $prevSound.addClass('on');
 
         // visual loading
-        self.seek.slider('disable');        
+        self.$seek.slider('disable');        
         self.setTrackName();
         self.showSpinner();
         self.resetSlider();        
 
-        var name = prevSound.data('name');
+        var name = $prevSound.data('name');
 
         // now change the track for real
         self.changeTrack(name);
@@ -286,13 +286,13 @@ var SOUND = SOUND || {
         var on  = state == 'play' ? 'play'  : 'pause',
             off = state == 'play' ? 'pause' : 'play';
 
-        this.control.addClass(on).removeClass(off);
+        this.$control.addClass(on).removeClass(off);
     },
 
     // display the track name
     'setTrackName' : function(){
-        var title = this.tracks.find('.on').text();
-        this.meta.find('.name').text(title);
+        var title = this.$tracks.find('.on').text();
+        this.$meta.find('.name').text(title);
     },
 
     // update the time ticker
@@ -311,12 +311,12 @@ var SOUND = SOUND || {
             seconds = '0'+seconds;
         }
 
-        this.meta.find('.time').text(minutes+':'+seconds);        
+        this.$meta.find('.time').text(minutes+':'+seconds);        
     },    
 
     // fetch the name of the first track
     'getFirstTrack' : function(){
-        return this.tracks.find('a').eq(0).data('name');
+        return this.$tracks.find('a').eq(0).data('name');
     },  
 
     // shortcut for playing/pausing
@@ -343,14 +343,14 @@ var SOUND = SOUND || {
         }
         
         self.setCurrentTime(secs);
-        self.seek.slider('option', 'value', secs);     
+        self.$seek.slider('option', 'value', secs);     
     },
 
     // listen for meta data to load
     'loadedMeta' : function() {
         var self = SOUND;
         self.duration = this.duration;
-        self.seek.slider('option', 'max', self.duration);        
+        self.$seek.slider('option', 'max', self.duration);        
     },
 
     // setup the player
@@ -367,7 +367,7 @@ var SOUND = SOUND || {
         // slider to 0, hide the spinner, & play
         this.setTrackName();
         this.resetSlider();
-        this.seek.slider('enable');
+        this.$seek.slider('enable');
         this.hideSpinner();
         this.play();
         this.progress = false;
