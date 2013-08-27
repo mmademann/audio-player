@@ -65,7 +65,8 @@ body p {
 	display: inline-block;
 	width: 60px;
 	height: 60px;
-	background-image: url(../images/sprite3.png);
+	background-image: url(../images/sprite2x.png);
+	background-size: 600px 80px;
 	background-repeat: no-repeat;
 	margin: 0 10px;
 
