@@ -170,7 +170,7 @@ var SOUND = SOUND || {
         this.setCurrentTime(0);          
     },  
 
-    // skip to the next track
+    // visually skip to the next track
     'nextTrack' : function(e){
         try{e.preventDefault()}catch(e){}
 
@@ -202,11 +202,11 @@ var SOUND = SOUND || {
 
         var name = nextSound.data('name');
 
-        // now change the audio src
+        // now change the track for real
         self.changeTrack(name);
     },
 
-    // skip to the previous track
+    // visually skip to the previous track
     'prevTrack' : function(e){
         try{e.preventDefault()}catch(e){}
 
@@ -231,7 +231,7 @@ var SOUND = SOUND || {
 
         var name = prevSound.data('name');
 
-        // now change the audio src
+        // now change the track for real
         self.changeTrack(name);
     },
 
