@@ -53,7 +53,7 @@ var SOUND = SOUND || {
         this.$outer
             .off('click')
             .on('click', '.pause', this.pause)
-            .on('click', '.play', this.nextTrack)
+            .on('click', '.play', this.play)
             .on('click', '.track', this.nextTrack)
             .on('click', '.s-next', this.nextTrack)
             .on('click', '.s-prev', this.prevTrack)
@@ -165,7 +165,6 @@ var SOUND = SOUND || {
 
     // bring the slider back to 0
     'resetSlider' : function() {
-        this.$seek.slider('option', 'max', this.duration);
         this.$seek.slider('option', 'range', 'min');           
         this.$seek.slider('option', 'value', 0);
         this.setCurrentTime(0);          
@@ -178,14 +177,7 @@ var SOUND = SOUND || {
         var self = SOUND,
             $currSound = self.$tracks.find('.on'),
             $nextSound = $(this).is('.track') ? 
-                         $(this) : $currSound.next();
-
-        // play button merely plays the track
-        // from wherever it was paused
-        if ($(this).is('.play')) {
-            self.play();
-            return;
-        }      
+                         $(this) : $currSound.next();    
 
         // if the current track is the last
         // the next track should be the first
