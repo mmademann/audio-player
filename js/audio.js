@@ -24,6 +24,7 @@ var SOUND = SOUND || {
     '$outer'      : $('#outer'),
     '$seek'       : $('#seek'),
     '$meta'       : $('#meta'),
+    '$time'       : $('.time'),
 
     'initialize' : function(){
 
@@ -152,14 +153,14 @@ var SOUND = SOUND || {
 
     // reveal loading spinner
     'showSpinner' : function() {
-        this.$meta.find('.time').hide();
+        this.$time.hide();
         this.$spinner.show();
     },
 
     // hide loading spinner
     'hideSpinner' : function() {
-        this.$meta.find('.time').show();
         this.$spinner.hide();
+        this.$time.show();
     },
 
     // bring the slider back to 0
@@ -176,7 +177,8 @@ var SOUND = SOUND || {
 
         var self = SOUND,
             $currSound = self.$tracks.find('.on'),
-            $nextSound = $(this).is('.track') ? $(this) : $currSound.next();
+            $nextSound = $(this).is('.track') ? 
+                         $(this) : $currSound.next();
 
         // play button merely plays the track
         // from wherever it was paused
@@ -311,7 +313,7 @@ var SOUND = SOUND || {
             seconds = '0'+seconds;
         }
 
-        this.$meta.find('.time').text(minutes+':'+seconds);        
+        this.$time.text(minutes+':'+seconds);        
     },    
 
     // fetch the name of the first track
