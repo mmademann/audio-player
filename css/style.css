@@ -288,11 +288,7 @@ body p {
 	-moz-transition: all .4s ease;
 	-o-transition: all .4s ease;
 	-ms-transition: all .4s ease;
-	transition: all .4s ease;	
-	
-	/*-webkit-box-shadow: inset 0px 2px 2px rgba(0,0,0,.6);
-	-moz-box-shadow: inset 0px 2px 2px rgba(0,0,0,.6);
-	box-shadow: inset 0px 2px 2px rgba(0,0,0,.6);*/
+	transition: all .4s ease;
 }
 
 #tracks a.on {
@@ -300,7 +296,7 @@ body p {
 	color:#000;
 }
 
-/** smartphone & tablet (portrait and landscape) **/
+/* smartphone & tablet (portrait and landscape) */
 @media only screen and (min-width : 0px) and (max-width : 1024px) {
 
 	#meta, #seek {
@@ -320,7 +316,7 @@ body p {
 	}
 }
 
-
+/* wider than 1024 */
 @media only screen and (min-width : 1025px) {
 	
 	body, html {
