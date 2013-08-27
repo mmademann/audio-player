@@ -338,13 +338,14 @@ var SOUND = SOUND || {
         }
         
         self.setCurrentTime(secs);
-        self.seek.slider('option', 'max', self.audio.duration);
         self.seek.slider('option', 'value', secs);     
     },
 
     // listen for meta data to load
     'loadedMeta' : function() {
-        SOUND.duration = this.duration;
+        var self = SOUND;
+        self.duration = this.duration;
+        self.seek.slider('option', 'max', self.duration);
     },
 
     // setup the player
