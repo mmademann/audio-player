@@ -40,11 +40,11 @@ var SOUND = SOUND || {
         // now set the audio src
         this.setSource(name);
 
-        // visually setup the player
-        this.playerSetup();
-
         // bind events
         this.events();
+
+        // visually setup the player
+        this.playerSetup();
     },
 
     'events' : function(){
@@ -68,16 +68,16 @@ var SOUND = SOUND || {
             this.$seek
                 .on('touchmove', this.slide)
                 .on('touchend', this.slide)
-                .on('touchend', this.scrubUp)
-                .on('touchstart', 'a', this.scrubDown);
+                .on('touchend', this.play)
+                .on('touchstart', 'a', this.pause);
 
         } else {           
 
             this.$seek
                 .on('slide', this.slide)
                 .on('mouseup', this.slide)
-                .on('mouseup', this.scrubUp)
-                .on('mousedown', 'a', this.scrubDown);
+                .on('mouseup', this.play)
+                .on('mousedown', 'a', this.pause);
         }
 
         // add listeners to the audio
@@ -116,22 +116,6 @@ var SOUND = SOUND || {
         }
         
         $(this).toggleClass('mute');        
-    },
-
-    // mousedown or touchstart for scrubber
-    'scrubDown' : function() {
-        var self = SOUND;     
-
-        self.audio.pause();
-        self.showState('play');
-    },
-
-    // mouseup or touchend for slider
-    'scrubUp' : function() {
-        var self = SOUND;
-
-        self.audio.play();
-        self.showState('pause');
     },
 
     // moving the slider
